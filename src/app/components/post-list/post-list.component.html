@@ -1,0 +1,3 @@
+<div *ngIf="!loading">
+	<app-post-card *ngFor="let post of posts" [title]="post.title.rendered" [slug]="post.slug" [excerpt]="post.excerpt.rendered" [featuredMedia]="getFeaturedMedia(post.featured_media)"></app-post-card>
+</div>

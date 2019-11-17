@@ -5,19 +5,23 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { ArchiveComponentsModule } from 'src/app/components/archive-components.module';
+import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
-  ],
-  declarations: [HomePage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		TranslateModule,
+		RouterModule.forChild([
+			{
+				path: '',
+				component: HomePage
+			}
+		]),
+		ArchiveComponentsModule
+	],
+	declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

@@ -1,9 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>archive</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		< <ion-title *ngIf="term">{{term.name}}</ion-title>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content></ion-refresher-content>
+	</ion-refresher>
+	<ng-template [ngIf]="posts">
+		<app-post-list [posts]="posts"></app-post-list>
+	</ng-template>
+	<ion-infinite-scroll (ionInfinite)="getNextPage($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 
 </ion-content>

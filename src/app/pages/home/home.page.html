@@ -1,14 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+	<div class="ion-padding">
+		<h1>{{title}}</h1>
+		<p>{{description}}</p>
+	</div>
+	<div class="ion-margin-bottom" *ngIf="latestPosts">
+		<h2 class="ion-padding-horizontal">{{'trending-articles' | translate }}</h2>
+		<app-post-slider [posts]="latestPosts"></app-post-slider>
+	</div>
+	<div class="ion-margin-bottom" *ngIf="latestPosts">
+		<h2 class="ion-padding-horizontal">{{'latest-articles' | translate }}</h2>
+		<app-post-list [posts]="latestPosts"></app-post-list>
+	</div>
 </ion-content>

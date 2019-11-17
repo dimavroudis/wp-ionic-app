@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ArchivePage } from './archive.page';
+import { ArchiveComponentsModule } from 'src/app/components/archive-components.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ArchivePage
-  }
+	{
+		path: '',
+		component: ArchivePage
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [ArchivePage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		RouterModule.forChild(routes),
+		ArchiveComponentsModule
+	],
+	declarations: [ArchivePage]
 })
-export class ArchivePageModule {}
+export class ArchivePageModule { }
