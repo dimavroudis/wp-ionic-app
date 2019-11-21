@@ -1,48 +1,30 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MediaService } from 'src/app/services/media.service';
-
+import { DomSanitizer } from '@angular/platform-browser';
+import { Post } from 'src/app/models/wordpress';
 @Component({
 	selector: 'app-post-slider',
 	templateUrl: './post-slider.component.html',
 	styleUrls: ['./post-slider.component.scss'],
 })
 export class PostSliderComponent implements OnInit {
-	@Input() posts: any[];
-	loading: boolean;
-	featuredMedia: any[];
+	@Input() posts: Post[];
 	slideOpts = {
 		initialSlide: 0,
 		speed: 400,
-		spaceBetween: 15,
+		spaceBetween: 10,
 		slidesPerView: 1.2
 	};
 
-	constructor(private media: MediaService) {
-		this.featuredMedia = [];
-		this.loading = true;
+	constructor(private media: MediaService, private sanitizer: DomSanitizer) {
 	}
 
 	ngOnInit() {
-		const mediaIds = [];
-		this.posts.map(async post => {
-			mediaIds.push(post.featured_media);
-		});
-		this.media.getMedia(mediaIds).subscribe(res => {
-			this.featuredMedia = res;
-			this.loading = false;
-		});
 	}
 
-	getFeaturedMedia(mediaId) {
-		const imageObj = this.featuredMedia.find(media => media.id === mediaId);
-		if (!imageObj) {
-			return null;
-		}
-		return imageObj.media_details.sizes.full.source_url;
+	getFeaturedMedia(post) {
+		return this.sanitizer.bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(post._embedded['wp:featuredmedia'][0], 'full')}')`);
 	}
 
-	hasFeaturedMedia(mediaId) {
-		return this.featuredMedia.find(media => media.id === mediaId);
-	}
 
 }

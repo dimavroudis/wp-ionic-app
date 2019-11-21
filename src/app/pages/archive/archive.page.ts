@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { TaxonomyService } from 'src/app/services/taxonomy.service';
-import { map } from 'rxjs/operators';
+import { Post, Term } from 'src/app/models/wordpress';
 
 @Component({
 	selector: 'app-archive',
@@ -11,53 +11,51 @@ import { map } from 'rxjs/operators';
 })
 export class ArchivePage implements OnInit {
 
-	posts: any[];
-	term: any;
-	taxonomy: string;
-	termId: string;
+	posts: Post[];
+	term: Term;
+	taxonomyBase: string;
+	termId: number;
 	page: number;
 	args: any;
 	loading: boolean;
 
-	constructor(private post: PostService, private taxonomies: TaxonomyService, private route: ActivatedRoute) {
+	constructor(private postService: PostService, private taxonomiesService: TaxonomyService, private route: ActivatedRoute) {
 	}
 
-	ngOnInit() {
-		this.termId = this.route.snapshot.paramMap.get('termId');
-		this.taxonomy = this.route.snapshot.paramMap.get('taxonomy');
+	ngOnInit(): void {
+		this.termId = +this.route.snapshot.paramMap.get('termId');
+		this.taxonomyBase = this.route.snapshot.paramMap.get('taxonomy');
 		this.initArchive();
 	}
 
 
-	initArchive() {
+	initArchive(): void {
 		this.loading = true;
 		this.args = {};
 		this.args.page = this.page = 1;
-		if (this.taxonomy) {
-			this.args[this.taxonomy] = this.termId;
-			this.taxonomies.getTaxonomyTerm(this.taxonomy, this.termId).subscribe(term => {
-				this.term = term;
-			});
+		if (this.taxonomyBase) {
+			this.args[this.taxonomyBase] = this.termId;
 		}
-		this.post.getPosts(this.args).subscribe(posts => {
+		this.postService.getPosts(this.args).subscribe(posts => {
 			this.posts = posts;
 			this.loading = false;
 		});
 	}
 
-	doRefresh(event) {
+	doRefresh(event): void {
 		this.args.page = this.page = 1;
-		this.post.getPosts(this.args).subscribe((posts) => {
+		this.postService.getPosts(this.args).subscribe((posts) => {
 			this.posts = posts;
 			event.target.complete();
 		});
 	}
 
-	getNextPage(event) {
+	getNextPage(event): void {
 		this.args.page = ++this.page;
-		this.post.getPosts(this.args).subscribe(posts => {
+		this.postService.getPosts(this.args).subscribe(posts => {
 			this.posts = [...this.posts, ...posts];
 			event.target.complete();
 		});
 	}
 }
+

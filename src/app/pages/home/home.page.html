@@ -3,12 +3,12 @@
 		<h1>{{title}}</h1>
 		<p>{{description}}</p>
 	</div>
-	<div class="ion-margin-bottom" *ngIf="latestPosts">
+	<div class="ion-margin-bottom" *ngIf="stickyPosts?.length">
 		<h2 class="ion-padding-horizontal">{{'trending-articles' | translate }}</h2>
-		<app-post-slider [posts]="latestPosts"></app-post-slider>
+		<app-post-slider [posts]="stickyPosts"></app-post-slider>
 	</div>
-	<div class="ion-margin-bottom" *ngIf="latestPosts">
+	<div class="ion-margin-bottom" *ngIf="latestPosts?.length">
 		<h2 class="ion-padding-horizontal">{{'latest-articles' | translate }}</h2>
-		<app-post-list [posts]="latestPosts"></app-post-list>
+		<app-post-slider [posts]="latestPosts"></app-post-slider>
 	</div>
 </ion-content>

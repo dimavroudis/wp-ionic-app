@@ -26,17 +26,16 @@ export class ApiService {
 		this.url = (this.isHttps ? 'https://' : 'https//') + this.domain + '/' + this.namespace;
 	}
 
-	get(endpoint: string, params?: any, reqOpts?: any) {
+	get(endpoint: string, params?: any, reqOpts?: any): Observable<any> {
 		if (!reqOpts) {
 			reqOpts = {
 				responseType: 'json',
-				params: new HttpParams()
 			};
 		}
-
 		// Support easy query params for GET requests
+		reqOpts.params = new HttpParams();
+		reqOpts.params = reqOpts.params.set('lang', this.getLang());
 		if (params) {
-			reqOpts.params = new HttpParams();
 			for (let k in params) {
 				if (k) {
 					reqOpts.params = reqOpts.params.set(k, params[k]);
@@ -47,15 +46,15 @@ export class ApiService {
 		return this.http.get(this.url + '/' + endpoint, reqOpts);
 	}
 
-	post(endpoint: string, body: any, reqOpts?: any) {
+	post(endpoint: string, body: any, reqOpts?: any): Observable<any> {
 		return this.http.post(this.url + '/' + endpoint, body, reqOpts);
 	}
 
-	put(endpoint: string, body: any, reqOpts?: any) {
+	put(endpoint: string, body: any, reqOpts?: any): Observable<any> {
 		return this.http.put(this.url + '/' + endpoint, body, reqOpts);
 	}
 
-	delete(endpoint: string, reqOpts?: any) {
+	delete(endpoint: string, reqOpts?: any): Observable<any> {
 		return this.http.delete(this.url + '/' + endpoint, reqOpts);
 	}
 
@@ -63,7 +62,7 @@ export class ApiService {
 		return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
 	}
 
-	getLang() {
+	getLang(): string {
 		return this.translate.currentLang;
 	}
 }

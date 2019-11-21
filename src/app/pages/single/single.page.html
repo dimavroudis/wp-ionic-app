@@ -1,9 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>single</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+	<div class="image" *ngIf="post" [style.backgroundImage]="postImage"></div>
+	<div *ngIf="post" class="ion-padding">
+		<h1>{{post.title.rendered}}</h1>
+		<p>{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
+		<div [innerHTML]="post.content.rendered"></div>
+	</div>
 </ion-content>

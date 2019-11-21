@@ -1,6 +1,11 @@
 <ion-slides pager="false" [options]="slideOpts" *ngIf="!loading">
 	<ion-slide *ngFor="let post of posts">
-		<app-post-card [title]="post.title.rendered" [slug]="post.slug"
-			[featuredMedia]="getFeaturedMedia(post.featured_media)"></app-post-card>
+		<ion-card [href]="'/post/' + post.id">
+			<div class="image" [style.backgroundImage]="getFeaturedMedia(post)"></div>
+			<ion-card-header>
+				<ion-card-title>{{post.title.rendered}}</ion-card-title>
+				<p class="ion-no-margin">{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
+			</ion-card-header>
+		</ion-card>
 	</ion-slide>
 </ion-slides>

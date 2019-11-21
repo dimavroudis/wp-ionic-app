@@ -1,29 +1,28 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AppInfo } from '../models/wordpress';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SettingsService {
 
-	title: string;
-	description: string;
-	gmtOffset: string;
-	homeUrl: string;
+	private appInfo: AppInfo;
 
 	constructor(private api: ApiService) { }
 
-	geAppInfo(): Observable<any> {
-		return this.api.get('').pipe(
-			map((res: any) => {
-				this.title = res.title = res.name;
-				this.description = res.description;
-				this.homeUrl = res.homeUrl = res.home;
-				this.gmtOffset = res.gmtOffset = res.gmt_offset;
-				return res;
-			})
-		);
+	getAppInfo(): Observable<AppInfo> {
+		if (this.appInfo) {
+			return of(this.appInfo);
+		} else {
+			return this.api.get('').pipe(
+				map((res: any) => {
+					this.appInfo =  res;
+					return res;
+				})
+			);
+		}
 	}
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
-import { MediaService } from 'src/app/services/media.service';
-import { loadingController } from '@ionic/core';
 import { SettingsService } from 'src/app/services/settings.service';
+import { Post } from 'src/app/models/wordpress';
 
 @Component({
 	selector: 'app-home',
@@ -11,20 +10,24 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class HomePage implements OnInit {
 
-	latestPosts: any[];
 	title: string;
-	description: any;
+	description: string;
+	stickyPosts: Post[];
+	latestPosts: Post[];
 
 	constructor(private post: PostService, private settings: SettingsService) {
 	}
 
 	ngOnInit() {
-		this.settings.geAppInfo().subscribe(app => {
-			this.title = app.title;
+		this.settings.getAppInfo().subscribe(app => {
+			this.title = app.name;
 			this.description = app.description;
-		})
+		});
 		this.post.getPosts().subscribe(async posts => {
 			this.latestPosts = posts;
+		});
+		this.post.getPosts({sticky: true}).subscribe(async posts => {
+			this.stickyPosts = posts;
 		});
 	}
 

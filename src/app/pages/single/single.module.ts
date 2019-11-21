@@ -6,21 +6,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SinglePage } from './single.page';
+import { MomentModule } from 'ngx-moment';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: SinglePage
-  }
+	{
+		path: '',
+		component: SinglePage
+	}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [SinglePage]
+	imports: [
+		CommonModule,
+		FormsModule,
+		IonicModule,
+		MomentModule,
+		TranslateModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [SinglePage]
 })
-export class SinglePageModule {}
+export class SinglePageModule { }

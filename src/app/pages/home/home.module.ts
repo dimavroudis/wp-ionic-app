@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { ArchiveComponentsModule } from 'src/app/components/archive-components.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 				component: HomePage
 			}
 		]),
-		ArchiveComponentsModule
+		ComponentsModule
 	],
 	declarations: [HomePage]
 })

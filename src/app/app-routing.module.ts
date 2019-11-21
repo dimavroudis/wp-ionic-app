@@ -12,11 +12,11 @@ const routes: Routes = [
 		loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
 	},
 	{
-		path: 'post/:slug',
+		path: 'post/:id',
 		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
 	},
 	{
-		path: 'page/:slug',
+		path: 'page/:id',
 		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
 	},
 	{

@@ -1,31 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { Media } from '../models/wordpress';
+import { map } from 'rxjs/operators';
+import { User } from '../models/wordpress';
+
 @Injectable({
 	providedIn: 'root'
 })
-export class MediaService {
+export class UsersService {
 
 	constructor(private api: ApiService) { }
 
-	getMedia(ids: Array<number>, options = {}): Observable<Media[]> {
+	getUsers(ids: Array<number>, options = {}): Observable<User[]> {
 		if (!ids) {
 			throw Error('No media IDs defined');
 		}
 		const args = Object.assign(options, { include: ids.toString() });
-		return this.api.get('wp/v2/media', args);
+		return this.api.get('wp/v2/users', args);
 	}
 
-	getSingleMedia(id: number, args?: any): Observable<Media> {
+	getUser(id: number, args?: any): Observable<User> {
 		if (!id) {
 			throw Error('No media ID defined');
 		}
-		return this.api.get('wp/v2/media/' + id, args);
-	}
-
-	getSourceUrl(media: any, size: string) {
-		return media.media_details.sizes[size].source_url;
+		return this.api.get('wp/v2/users/' + id, args);
 	}
 
 }

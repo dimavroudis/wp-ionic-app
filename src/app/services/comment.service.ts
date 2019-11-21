@@ -9,11 +9,11 @@ export class CommentService {
 
 	constructor(private api: ApiService) { }
 
-	getComments(postId: number, args = {}): Observable<any> {
+	getComments(postId: number, options = {}): Observable<Comment[]> {
 		if (!postId) {
 			throw Error('No post ID defined');
 		}
-		args['post'] = postId;
+		const args = Object.assign(options, { post: postId });
 		return this.api.get('wp/v2/comments', args);
 	}
 

@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ArchivePage } from './archive.page';
-import { ArchiveComponentsModule } from 'src/app/components/archive-components.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Routes = [
 	{
@@ -21,7 +21,7 @@ const routes: Routes = [
 		FormsModule,
 		IonicModule,
 		RouterModule.forChild(routes),
-		ArchiveComponentsModule
+		ComponentsModule
 	],
 	declarations: [ArchivePage]
 })
