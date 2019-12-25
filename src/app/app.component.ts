@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController, ToastController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingsService } from './services/settings.service';
-import { throttleTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Network } from '@ionic-native/network/ngx';
+
 
 @Component({
 	selector: 'app-root',
@@ -13,12 +14,19 @@ import { throttleTime } from 'rxjs/operators';
 	styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+	lastBack: number;
+	toast: any;
+
 	constructor(
-		private platform: Platform,
-		private splashScreen: SplashScreen,
-		private statusBar: StatusBar,
 		private translate: TranslateService,
-		private settings: SettingsService
+		private platform: Platform,
+		private navCtrl: NavController,
+		public router: Router,
+		private splashscreen: SplashScreen,
+		private statusBar: StatusBar,
+		private toastCtrl: ToastController,
+		private network: Network
 	) {
 		this.initializeApp();
 	}
@@ -26,7 +34,13 @@ export class AppComponent {
 	initializeApp() {
 		this.platform.ready().then(() => {
 			this.statusBar.styleDefault();
-			this.splashScreen.hide();
+			this.splashscreen.hide();
+
+			// Sets hardware back button
+			this.backButtonEvent();
+
+			// Monitors online/offline status
+			this.listenToNetworkChange();
 
 			// set the languges supported
 			this.translate.addLangs(['en', 'el']);
@@ -38,4 +52,50 @@ export class AppComponent {
 			this.translate.use('en');
 		});
 	}
+
+	backButtonEvent() {
+		this.platform.backButton.subscribe(() => {
+			if (this.router.url !== '/tabs/home') {
+				this.navCtrl.back();
+			} else if (Date.now() - this.lastBack < 500) {
+				navigator['app'].exitApp();
+			}
+			this.lastBack = Date.now();
+		});
+	}
+
+	isConnected() {
+		return this.network.type && this.network.type !== 'none';
+	}
+
+	listenToNetworkChange() {
+		if (this.platform.is('cordova')) {
+			this.toggleToast(this.isConnected());
+			this.network.onDisconnect().subscribe(() => {
+				this.toggleToast(false);
+			});
+			this.network.onConnect().subscribe(() => {
+				this.toggleToast(true);
+			});
+		}
+	}
+
+	async toggleToast(connected) {
+		if (connected) {
+			if (this.toast) {
+				await this.toast.dismiss();
+			}
+			await this.createOfflineToast();
+		} else {
+			return await this.toast.present();
+		}
+	}
+
+	async createOfflineToast() {
+		return this.toast = await this.toastCtrl.create({
+			message: 'The connection is lost.',
+			cssClass: 'above-tabbar'
+		});
+	}
+
 }

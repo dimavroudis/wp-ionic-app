@@ -2,11 +2,19 @@
 	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
 		<ion-refresher-content></ion-refresher-content>
 	</ion-refresher>
-	<ng-template [ngIf]="posts">
-		<app-post-list [posts]="posts"></app-post-list>
+	<ng-template [ngIf]="!loading && posts">
+		<app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
 	</ng-template>
-	<ion-infinite-scroll (ionInfinite)="getNextPage($event)">
+	<ng-template [ngIf]="loading">
+		<app-skeleton-card></app-skeleton-card>
+		<app-skeleton-card></app-skeleton-card>
+		<app-skeleton-card></app-skeleton-card>
+		<app-skeleton-card></app-skeleton-card>
+	</ng-template>
+	<ion-infinite-scroll (ionInfinite)="getNextPage($event)" [disabled]="lastPage">
 		<ion-infinite-scroll-content></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
-
+	<ng-template *ngIf="lastPage">
+		{{ "No more posts" | translate}}
+	</ng-template>
 </ion-content>

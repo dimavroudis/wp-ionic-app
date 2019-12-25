@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Post, Factory } from '../models/wordpress';
+import { Post, Factory, SearchResult } from '../models/wordpress';
 
 @Injectable({
 	providedIn: 'root'
@@ -43,6 +43,17 @@ export class PostService {
 		}
 		args = Object.assign(args, { _embed: true });
 		return this.api.get('wp/v2/pages/' + id);
+	}
+
+	search(searchString: string, args?: any): Observable<SearchResult[]> {
+		if (args) {
+			args.search = searchString;
+		} else {
+			args = {
+				search: searchString
+			};
+		}
+		return this.api.get('wp/v2/search', args);
 	}
 
 }

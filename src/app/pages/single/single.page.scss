@@ -1,7 +1,27 @@
-.image{
+.overlay-header {
+	position: relative;
 	width: 100%;
-	padding-bottom: 55%;
+	padding-bottom: 65%;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+
+	&::before{
+		content: "";
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top:0;
+		left: 0;
+		background: linear-gradient(rgba(0,0,0, 0.8) 5%, rgba(0,0,0, 0) 60%);
+	}
+
+	ion-back-button {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+		--color: var(--ion-color-light);
+		padding: var(--ion-padding);
+	}
 }

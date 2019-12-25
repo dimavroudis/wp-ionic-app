@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MediaService } from 'src/app/services/media.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Post } from 'src/app/models/wordpress';
+import { NavController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-single',
@@ -21,7 +22,9 @@ export class SinglePage implements OnInit {
 		private postService: PostService,
 		private route: ActivatedRoute,
 		private media: MediaService,
-		private sanitizer: DomSanitizer) {
+		private sanitizer: DomSanitizer,
+		private navCtrl: NavController
+	) {
 	}
 
 	ngOnInit() {
@@ -35,6 +38,10 @@ export class SinglePage implements OnInit {
 					bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(this.post._embedded['wp:featuredmedia'][0], 'full')}')`);
 			}
 		});
+	}
+
+	goBack() {
+		this.navCtrl.pop();
 	}
 
 }

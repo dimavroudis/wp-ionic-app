@@ -12,6 +12,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ApiService } from './services/api.service';
+import { Network } from '@ionic-native/network/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -32,12 +34,16 @@ export function createTranslateLoader(http: HttpClient) {
 				deps: [HttpClient]
 			}
 		}),
-		AppRoutingModule
+		AppRoutingModule,
+		IonicStorageModule.forRoot({
+			name: '_wp_ionic'
+		})
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
 		ApiService,
+		Network,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],
 	bootstrap: [AppComponent]

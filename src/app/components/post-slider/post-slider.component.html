@@ -1,11 +1,11 @@
-<ion-slides pager="false" [options]="slideOpts" *ngIf="!loading">
+<ion-slides pager="false" [options]="slideOpts">
 	<ion-slide *ngFor="let post of posts">
-		<ion-card [href]="'/post/' + post.id">
+		<ion-card [routerLink]="'/post/' + post.id">
 			<div class="image" [style.backgroundImage]="getFeaturedMedia(post)"></div>
-			<ion-card-header>
+			<div class="content">
 				<ion-card-title>{{post.title.rendered}}</ion-card-title>
 				<p class="ion-no-margin">{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
-			</ion-card-header>
+			</div>
 		</ion-card>
 	</ion-slide>
 </ion-slides>

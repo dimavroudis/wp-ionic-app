@@ -18,11 +18,13 @@ export class ArchivePage implements OnInit {
 	page: number;
 	args: any;
 	loading: boolean;
+	lastPage: boolean;
 
 	constructor(private postService: PostService, private taxonomiesService: TaxonomyService, private route: ActivatedRoute) {
 	}
 
 	ngOnInit(): void {
+		this.args = this.route.snapshot.data.args;
 		this.termId = +this.route.snapshot.paramMap.get('termId');
 		this.taxonomyBase = this.route.snapshot.paramMap.get('taxonomy');
 		this.initArchive();
@@ -31,7 +33,8 @@ export class ArchivePage implements OnInit {
 
 	initArchive(): void {
 		this.loading = true;
-		this.args = {};
+		this.lastPage = false;
+		this.args = this.args || {};
 		this.args.page = this.page = 1;
 		if (this.taxonomyBase) {
 			this.args[this.taxonomyBase] = this.termId;
@@ -47,6 +50,8 @@ export class ArchivePage implements OnInit {
 		this.postService.getPosts(this.args).subscribe((posts) => {
 			this.posts = posts;
 			event.target.complete();
+		}, (error) => {
+			this.loading = false;
 		});
 	}
 
@@ -55,6 +60,11 @@ export class ArchivePage implements OnInit {
 		this.postService.getPosts(this.args).subscribe(posts => {
 			this.posts = [...this.posts, ...posts];
 			event.target.complete();
+		}, (error) => {
+			event.target.complete();
+			if (error.error.code === 'rest_post_invalid_page_number') {
+				this.lastPage = true;
+			}
 		});
 	}
 }

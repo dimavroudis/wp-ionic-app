@@ -1,0 +1,12 @@
+ion-header ion-toolbar{
+	display: flex;
+
+	ion-buttons{
+		height: 100%;
+	}
+}
+
+ion-toolbar.sc-ion-searchbar-ios-h,
+ion-toolbar .sc-ion-searchbar-ios-h {
+	padding-bottom: 0;
+}

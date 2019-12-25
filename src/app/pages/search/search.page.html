@@ -1,9 +1,51 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>search</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-searchbar mode="ios" (ionClear)="search()" (ionChange)="search($event.target.value)" [value]="query"
+			showCancelButton="never" debounce="1000" placeholder="{{'Search' | translate}}"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+	<ng-template [ngIf]="!loading && this.query">
+		<ion-list *ngIf="posts.length > 0">
+			<ion-item lines="none" *ngFor="let post of posts" [routerLink]="['/post', post.id]">
+				{{post.title}}
+			</ion-item>
+		</ion-list>
+		<div *ngIf="posts.length === 0" class="ion-padding">
+			{{'No posts found.' | translate}}
+		</div>
+		<ion-infinite-scroll (ionInfinite)="nextPage($event)" [disabled]="lastPage">
+			<ion-infinite-scroll-content></ion-infinite-scroll-content>
+		</ion-infinite-scroll>
+	</ng-template>
+	<ng-template [ngIf]="latestSearches && latestSearches.length && !this.query">
+		<ion-list>
+			<ion-list-header>
+				{{'Latest Searches' | translate}}
+			</ion-list-header>
+			<ion-item *ngFor="let searchTerm of latestSearches.slice(0,10)" (click)="search(searchTerm.term)">
+				{{searchTerm.term}}
+			</ion-item>
+		</ion-list>
+	</ng-template>
+	<ng-template [ngIf]="loading">
+		<ion-list>
+			<ion-item>
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-item>
+			<ion-item>
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-item>
+			<ion-item>
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-item>
+			<ion-item>
+				<ion-skeleton-text animated></ion-skeleton-text>
+			</ion-item>
+		</ion-list>
+	</ng-template>
 </ion-content>

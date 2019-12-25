@@ -19,10 +19,6 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.settings.getAppInfo().subscribe(app => {
-			this.title = app.name;
-			this.description = app.description;
-		});
 		this.post.getPosts().subscribe(async posts => {
 			this.latestPosts = posts;
 		});

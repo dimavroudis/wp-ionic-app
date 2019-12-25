@@ -1,0 +1,8 @@
+<ion-card [routerLink]="'/post/' + post.id">
+	<div class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
+	<ion-card-header>
+		<ion-card-title>{{post.title.rendered}}</ion-card-title>
+		<p class="ion-margin-bottom">{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
+		<div class="excerpt" *ngIf="post.excerpt.rendered" [innerHTML]="post.excerpt.rendered"></div>
+	</ion-card-header>
+</ion-card>

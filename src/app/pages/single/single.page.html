@@ -1,5 +1,7 @@
 <ion-content>
-	<div class="image" *ngIf="post" [style.backgroundImage]="postImage"></div>
+	<div class="overlay-header" *ngIf="post" [style.backgroundImage]="postImage">
+		<ion-back-button></ion-back-button>
+	</div>
 	<div *ngIf="post" class="ion-padding">
 		<h1>{{post.title.rendered}}</h1>
 		<p>{{'publised' | translate}} {{post.date | amTimeAgo}}</p>

@@ -23,7 +23,10 @@ export class PostSliderComponent implements OnInit {
 	}
 
 	getFeaturedMedia(post) {
-		return this.sanitizer.bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(post._embedded['wp:featuredmedia'][0], 'full')}')`);
+		if (post._embedded['wp:featuredmedia']) {
+			return this.sanitizer.bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(post._embedded['wp:featuredmedia'][0], 'full')}')`);
+		}
+		return '';
 	}
 
 

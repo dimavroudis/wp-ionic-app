@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostListComponent } from './post-list.component';
+import { SkeletonCardComponent } from './skeleton-card.component';
 
-describe('PostListComponent', () => {
-  let component: PostListComponent;
-  let fixture: ComponentFixture<PostListComponent>;
+describe('SkeletonCardComponent', () => {
+  let component: SkeletonCardComponent;
+  let fixture: ComponentFixture<SkeletonCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostListComponent ],
+      declarations: [ SkeletonCardComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostListComponent);
+    fixture = TestBed.createComponent(SkeletonCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

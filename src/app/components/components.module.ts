@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { PostListComponent } from './post-list/post-list.component';
 import { PostSliderComponent } from './post-slider/post-slider.component';
 import { TaxonomySliderComponent } from './taxonomy-slider/taxonomy-slider.component';
 import { MomentModule } from 'ngx-moment';
 import { TranslateModule } from '@ngx-translate/core';
+import { PostCardComponent } from './post-card/post-card.component';
+import { SkeletonCardComponent } from './skeleton-card/skeleton-card.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	imports: [
@@ -14,9 +16,10 @@ import { TranslateModule } from '@ngx-translate/core';
 		FormsModule,
 		IonicModule,
 		MomentModule,
-		TranslateModule
+		TranslateModule,
+		RouterModule
 	],
-	declarations: [ PostListComponent, PostSliderComponent, TaxonomySliderComponent],
-	exports: [PostListComponent, PostSliderComponent, TaxonomySliderComponent]
+	declarations: [ PostCardComponent, PostSliderComponent, TaxonomySliderComponent, SkeletonCardComponent],
+	exports: [PostCardComponent, PostSliderComponent, TaxonomySliderComponent, SkeletonCardComponent]
 })
 export class ComponentsModule { }
