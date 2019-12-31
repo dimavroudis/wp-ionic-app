@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Post, Factory, SearchResult } from '../models/wordpress';
+import { Post, SearchResult } from '../models/wordpress';
 
 @Injectable({
 	providedIn: 'root'

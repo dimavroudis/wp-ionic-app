@@ -1,8 +1,12 @@
 <ion-card [routerLink]="'/post/' + post.id">
-	<div class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
+	<div *ngIf="post._embedded['wp:featuredmedia']" class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
 	<ion-card-header>
-		<ion-card-title>{{post.title.rendered}}</ion-card-title>
-		<p class="ion-margin-bottom">{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
+		<ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
+		<p class="ion-margin-bottom" >
+			<ng-template [ngIf]="post.categories"><span [innerHTML]="post._embedded['wp:term'][0][0].name"></span></ng-template>
+			{{'publised' | translate}} {{post.date | amTimeAgo}} 
+			<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span [innerHTML]="post._embedded.author[0].name"></span></ng-template>
+		</p>
 		<div class="excerpt" *ngIf="post.excerpt.rendered" [innerHTML]="post.excerpt.rendered"></div>
 	</ion-card-header>
 </ion-card>

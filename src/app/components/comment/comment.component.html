@@ -1,3 +1,14 @@
-<p>
-  comment works!
-</p>
+<div class="comment">
+	<div class="header">
+	<ion-thumbnail slot="start">
+		<img [src]="comment.author_avatar_urls[48]">
+	</ion-thumbnail>
+	<div >
+		<div class="meta">
+			<p class="author" [innerHTML]="comment.author_name"></p>
+			<p class="date">{{'publised' | translate}} {{comment.date | amTimeAgo}}</p>
+		</div>
+	</div>
+</div>
+	<div class="inner" [innerHTML]="comment.content.rendered"></div>
+</div>

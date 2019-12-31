@@ -102,6 +102,7 @@ export interface Comment {
 	date_gmt: string;
 	link: string;
 	parent: number;
+	children: Comment[];
 	post: number;
 	status: string;
 	type: string;

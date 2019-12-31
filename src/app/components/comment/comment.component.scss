@@ -1,0 +1,32 @@
+.comment{
+	margin-bottom: 1em;
+}
+
+.header{
+	display: flex;
+	align-items: flex-start;
+}
+
+.inner{
+	overflow-wrap: break-word;
+    overflow: hidden;
+}
+
+.author{
+	margin-bottom: 0;
+	font-weight: 700;
+}
+
+.date{
+	margin-bottom: 0;
+	font-size: 0.8em;
+}
+
+.meta{
+	margin-bottom: 0.8em;
+}
+
+ion-thumbnail{
+	flex-shrink: 0;
+	margin-right: 0.8em;
+}

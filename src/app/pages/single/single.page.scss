@@ -25,3 +25,17 @@
 		padding: var(--ion-padding);
 	}
 }
+
+header{
+	margin-bottom: 2em;
+	h1{
+		margin-top: 0;
+	}
+	.category{
+		font-size: 1.2em;
+		margin-bottom: 0.5em;
+	}
+	.meta{
+		font-size: 0.9em;
+	}
+}

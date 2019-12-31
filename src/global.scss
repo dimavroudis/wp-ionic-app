@@ -25,6 +25,8 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import "~prismjs/themes/prism-okaidia";
+
 
 html {
 	font-size: 18px;
@@ -58,4 +60,8 @@ h4 {
 
 h5 {
 	font-size: 1.1em;
+}
+
+p{
+	margin-top: 0;
 }

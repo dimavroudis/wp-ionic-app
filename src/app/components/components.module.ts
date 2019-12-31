@@ -19,7 +19,17 @@ import { RouterModule } from '@angular/router';
 		TranslateModule,
 		RouterModule
 	],
-	declarations: [ PostCardComponent, PostSliderComponent, TaxonomySliderComponent, SkeletonCardComponent],
-	exports: [PostCardComponent, PostSliderComponent, TaxonomySliderComponent, SkeletonCardComponent]
+	declarations: [
+		PostCardComponent,
+		PostSliderComponent,
+		TaxonomySliderComponent,
+		SkeletonCardComponent,
+	],
+	exports: [
+		PostCardComponent,
+		PostSliderComponent,
+		TaxonomySliderComponent,
+		SkeletonCardComponent,
+	]
 })
 export class ComponentsModule { }

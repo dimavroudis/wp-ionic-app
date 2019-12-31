@@ -3,7 +3,7 @@
 		<ion-card [routerLink]="'/post/' + post.id">
 			<div class="image" [style.backgroundImage]="getFeaturedMedia(post)"></div>
 			<div class="content">
-				<ion-card-title>{{post.title.rendered}}</ion-card-title>
+				<ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
 				<p class="ion-no-margin">{{'publised' | translate}} {{post.date | amTimeAgo}}</p>
 			</div>
 		</ion-card>

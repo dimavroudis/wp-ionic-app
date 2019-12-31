@@ -11,8 +11,8 @@
 <ion-content>
 	<ng-template [ngIf]="!loading && this.query">
 		<ion-list *ngIf="posts.length > 0">
-			<ion-item lines="none" *ngFor="let post of posts" [routerLink]="['/post', post.id]">
-				{{post.title}}
+			<ion-item lines="none" *ngFor="let post of posts" [routerLink]="['/post', post.id]" >
+				<ion-label [innerHTML]="post.title"></ion-label>
 			</ion-item>
 		</ion-list>
 		<div *ngIf="posts.length === 0" class="ion-padding">

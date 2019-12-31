@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { SinglePage } from './single.page';
 import { MomentModule } from 'ngx-moment';
 import { TranslateModule } from '@ngx-translate/core';
+import { CommentsComponentsModule } from 'src/app/components/comments-components.module';
 
 const routes: Routes = [
 	{
@@ -23,8 +24,9 @@ const routes: Routes = [
 		IonicModule,
 		MomentModule,
 		TranslateModule,
+		CommentsComponentsModule,
 		RouterModule.forChild(routes)
 	],
-	declarations: [SinglePage]
+	declarations: [SinglePage],
 })
 export class SinglePageModule { }

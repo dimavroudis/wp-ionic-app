@@ -1,3 +1,19 @@
-<p>
-  comment-list works!
-</p>
+<div class="comments-list" *ngIf="comments && comments.length">
+	<h2>
+		{{'Comments' |translate}}
+	</h2>
+	<div *ngFor="let comment of comments">
+		<app-comment [comment]="comment"></app-comment>
+		<div class="children">
+			<app-comment *ngFor="let child of comment.children" [comment]="child"></app-comment>
+		</div>
+	</div>
+	<ng-container class="ion-text-center" *ngIf="isLast; else moreComments">
+		{{'No more comments' | translate}}
+	</ng-container>
+	<ng-template #moreComments>
+		<ion-button expand="block" (click)="getNextPage()">{{'Load more comments' | translate}}</ion-button>
+	</ng-template>
+	
+	
+</div>
