@@ -19,6 +19,7 @@ export interface Post {
 	title: { rendered: string; };
 	content: { rendered: string };
 	excerpt: { rendered: string };
+	link: string;
 	author: number;
 	featured_media: number;
 	comment_status: CommentStatus;

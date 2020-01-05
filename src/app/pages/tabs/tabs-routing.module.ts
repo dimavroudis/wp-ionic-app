@@ -22,15 +22,6 @@ const routes: Routes = [
 				loadChildren: () => import('../archive/archive.module').then(m => m.ArchivePageModule)
 			},
 			{
-				path: 'top',
-				data: {
-					args: {
-						sticky: true
-					}
-				},
-				loadChildren: () => import('../archive/archive.module').then(m => m.ArchivePageModule)
-			},
-			{
 				path: 'more',
 				children: [
 					{

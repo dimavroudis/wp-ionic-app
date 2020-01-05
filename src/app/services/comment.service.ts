@@ -18,6 +18,18 @@ export class CommentService {
 		return this.api.get('wp/v2/comments', args);
 	}
 
+	getCommentsByParent(parentId: number, options = {}): Observable<Comment[]> {
+		if (!parentId) {
+			throw Error('No parent ID defined');
+		}
+		const args = Object.assign(options, { parent: parentId });
+		return this.api.get('wp/v2/comments', args);
+	}
+
+	createComment(args): Observable<Comment[]> {
+		return this.api.post('wp/v2/comments', args);
+	}
+
 	sortCommentsHierarchically(comments) {
 		comments.forEach((parentComment, index) => {
 			comments[index].children = comments.filter(comment => parentComment.id === comment.parent);

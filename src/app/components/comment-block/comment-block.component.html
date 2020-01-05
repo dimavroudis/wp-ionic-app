@@ -1,0 +1,35 @@
+<div class="comment">
+	<div class="header">
+		<ion-thumbnail slot="start">
+			<img [src]="comment.author_avatar_urls[48]">
+		</ion-thumbnail>
+		<div>
+			<div class="meta">
+				<p class="author" [innerHTML]="comment.author_name"></p>
+				<p class="date">{{'publised' | translate}} {{comment.date | amTimeAgo}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="inner" [innerHTML]="comment.content.rendered"></div>
+	<div class="actions">
+		<ion-button fill="clear" size="small" (click)="openEditor()">{{'Reply to' | translate}} {{comment.author_name}}</ion-button>
+		<ion-button fill="clear" size="small" [disabled]="loading" *ngIf="!showReplies && hasReplies" (click)="getChildComments()">{{'Show replies' | translate}}</ion-button>
+		<ion-button fill="clear" size="small" *ngIf="showReplies && hasReplies" (click)="showReplies = false">{{'Hide replies' | translate}}</ion-button>
+	</div>
+	<div class="children" *ngIf="showReplies">
+		<div class="comment" *ngFor="let child of comment.children">
+			<div class="header">
+				<ion-thumbnail slot="start">
+					<img [src]="child.author_avatar_urls[48]">
+				</ion-thumbnail>
+				<div>
+					<div class="meta">
+						<p class="author" [innerHTML]="child.author_name"></p>
+						<p class="date">{{'publised' | translate}} {{child.date | amTimeAgo}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="inner" [innerHTML]="child.content.rendered"></div>
+		</div>
+	</div>
+</div>

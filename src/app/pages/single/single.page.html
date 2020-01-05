@@ -1,9 +1,13 @@
 <ion-content>
 	<div class="overlay-header" *ngIf="post" [style.backgroundImage]="postImage">
-		<ion-back-button></ion-back-button>
+		<div class="top">
+			<ion-back-button></ion-back-button>
+			<app-share [link]="post.link" color='light'></app-share>
+		</div>
+		
 	</div>
-	<div *ngIf="post" class="ion-padding">
-		<header>
+	<div *ngIf="post">
+		<header class="ion-padding">
 			<p class="category" *ngIf="post.categories" [innerHTML]="post._embedded['wp:term'][0][0].name"></p>
 			<h1 [innerHTML]="post.title.rendered"></h1>
 			<p class="meta">
@@ -16,7 +20,11 @@
 				</ion-chip>
 			</div>
 		</header>
-		<article [innerHTML]="post.content.rendered"></article>
-		<app-comment-list [postId]="post.id"></app-comment-list>
+		<article class="ion-padding" [innerHTML]="post.content.rendered"></article>
+		<footer class="ion-padding">
+			<ng-template [ngIf]="post.comment_status === 'open'">
+				<app-comment-list [postId]="post.id"></app-comment-list>
+			</ng-template>
+		</footer>
 	</div>
 </ion-content>

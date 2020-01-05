@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { SinglePage } from './single.page';
 import { MomentModule } from 'ngx-moment';
 import { TranslateModule } from '@ngx-translate/core';
-import { CommentsComponentsModule } from 'src/app/components/comments-components.module';
+import { PostComponentsModule } from 'src/app/components/post-components.module';
 
 const routes: Routes = [
 	{
@@ -24,7 +24,7 @@ const routes: Routes = [
 		IonicModule,
 		MomentModule,
 		TranslateModule,
-		CommentsComponentsModule,
+		PostComponentsModule,
 		RouterModule.forChild(routes)
 	],
 	declarations: [SinglePage],

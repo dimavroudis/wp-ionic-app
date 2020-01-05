@@ -6,36 +6,47 @@
 	background-position: center;
 	background-repeat: no-repeat;
 
-	&::before{
+	&::before {
 		content: "";
 		height: 100%;
 		width: 100%;
 		position: absolute;
-		top:0;
+		top: 0;
 		left: 0;
-		background: linear-gradient(rgba(0,0,0, 0.8) 5%, rgba(0,0,0, 0) 60%);
+		background: linear-gradient(rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 60%);
 	}
 
-	ion-back-button {
+	.top {
 		position: absolute;
 		left: 0;
 		top: 0;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--ion-padding);
+	}
+
+	ion-back-button,
+	app-share {
 		display: block;
 		--color: var(--ion-color-light);
-		padding: var(--ion-padding);
 	}
 }
 
-header{
+header {
 	margin-bottom: 2em;
-	h1{
+
+	h1 {
 		margin-top: 0;
 	}
-	.category{
+
+	.category {
 		font-size: 1.2em;
 		margin-bottom: 0.5em;
 	}
-	.meta{
+
+	.meta {
 		font-size: 0.9em;
 	}
 }

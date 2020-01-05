@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ApiService } from './services/api.service';
 import { Network } from '@ionic-native/network/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -44,6 +45,7 @@ export function createTranslateLoader(http: HttpClient) {
 		SplashScreen,
 		ApiService,
 		Network,
+		SocialSharing,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
 	],
 	bootstrap: [AppComponent]

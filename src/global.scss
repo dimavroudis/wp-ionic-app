@@ -65,3 +65,8 @@ h5 {
 p{
 	margin-top: 0;
 }
+
+ion-list, ion-item{
+	--ion-item-background:transparent;
+	--background:transparent;
+}
