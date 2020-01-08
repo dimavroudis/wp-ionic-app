@@ -52,8 +52,6 @@ export class AppComponent {
 
 			// the lang to use, if the lang isn't available, it will use the current loader to get them
 			this.translate.use('en');
-
-			this.settings.getAppInfo().subscribe();
 		});
 	}
 

@@ -1,0 +1,21 @@
+<ion-content class="ion-padding ion-text-center">
+	<h1 class="ion-margin-bottom">Welcome to<br/>WP-Ionic</h1>
+	<p class="ion-margin-bottom">Enter the domain of a WordPress website to get started!</p>
+	<form class="ion-padding-vertical ion-text-left" (ngSubmit)="submit()" [formGroup]="setupForm" >
+		<ion-item class="ion-margin-vertical">
+			<ion-label position="floating" for="domain">{{'Domain' | translate}}</ion-label>
+			<ion-input autocomplete="on" type="text" inputmode="url" [placeholder]="domain" formControlName="domain"></ion-input>
+		</ion-item>
+		<ion-button class="ion-margin-vertical" type="submit" expand="block">{{"Validate & Submit" | translate}}</ion-button>
+		<ng-template [ngIf]="isInvalid">
+			<div>The domain you submited is invalid. The reason might be one of the following:
+				<ol>
+					<li>This domain is invalid. Make sure the domain exists, is not misspelled and that you have not included the http protocal(https://)</li>
+					<li>This domain doesn't support https. This ia requirement for the app to work.</li>
+					<li>It is not a WordPress website. </li>
+					<li>It is a Wordpress website, but the WordPress Rest API is disabled.</li>
+				</ol>
+			</div>
+		</ng-template>
+	</form>
+</ion-content>

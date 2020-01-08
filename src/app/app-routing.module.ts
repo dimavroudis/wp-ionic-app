@@ -3,7 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 	{
-		path: '',
+		path: 'intro',
+		loadChildren: './pages/intro/intro.module#IntroPageModule'
+	},
+	{
+		path: 'tabs',
 		loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
 	},
 	{
@@ -20,7 +24,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'tax/:taxonomy/term/:termId',
-		data: { header: true, taxSlider: false},
+		data: { header: true, taxSlider: false },
 		children: [
 			{
 				path: '',
@@ -31,6 +35,11 @@ const routes: Routes = [
 				loadChildren: () => import('./pages/archive/archive.module').then(m => m.ArchivePageModule)
 			}
 		]
+	},
+	{
+		path: '',
+		redirectTo: '/intro',
+		pathMatch: 'full'
 	}
 ];
 

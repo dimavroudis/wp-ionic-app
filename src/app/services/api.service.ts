@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpEvent } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,16 +15,12 @@ export class ApiService {
 	private url: string;
 
 	constructor(private http: HttpClient, private translate: TranslateService) {
-		// Website domain
-		this.domain = 'www.contradodigital.com';
 
 		// The path of endpoints
 		this.namespace = 'wp-json';
 
 		// HTTPS support
 		this.isHttps = true;
-
-		this.url = (this.isHttps ? 'https://' : 'https//') + this.domain + '/' + this.namespace;
 	}
 
 	get(endpoint: string, params?: any, reqOpts?: any): Observable<any> {
@@ -64,5 +61,33 @@ export class ApiService {
 
 	getLang(): string {
 		return this.translate.currentLang;
+	}
+
+	setDomain(domain) {
+		return this.isDomainValid(domain).pipe(
+			map(isValid => {
+				if (isValid) {
+					this.domain = domain;
+					this.url = (this.isHttps ? 'https://' : 'https//') + this.domain + '/' + this.namespace;
+					return true;
+				}
+				return false;
+			})
+		);
+	}
+
+	private isDomainValid(domain) {
+		return this.http.get((this.isHttps ? 'https://' : 'https//') + domain + '/' + this.namespace + '/').pipe(
+			map((data => true)),
+			catchError((err) => of(false))
+		);
+	}
+
+	hasDomain() {
+		return this.domain ? true : false;
+	}
+
+	getDomain(){
+		return this.domain;
 	}
 }
