@@ -70,3 +70,12 @@ ion-list, ion-item{
 	--ion-item-background:transparent;
 	--background:transparent;
 }
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+.back-button-has-icon-only.sc-ion-back-button-md-h{
+	height: auto;
+}

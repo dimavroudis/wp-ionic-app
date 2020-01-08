@@ -4,24 +4,24 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TaxonomySliderComponent } from './taxonomy-slider.component';
 
 describe('TaxonomySliderComponent', () => {
-  let component: TaxonomySliderComponent;
-  let fixture: ComponentFixture<TaxonomySliderComponent>;
+	let component: TaxonomySliderComponent;
+	let fixture: ComponentFixture<TaxonomySliderComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TaxonomySliderComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
-  }));
+	beforeEach(async(() => {
+		TestBed.configureTestingModule({
+			declarations: [TaxonomySliderComponent],
+			schemas: [CUSTOM_ELEMENTS_SCHEMA],
+		})
+			.compileComponents();
+	}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TaxonomySliderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		fixture = TestBed.createComponent(TaxonomySliderComponent);
+		component = fixture.componentInstance;
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

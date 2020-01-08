@@ -19,6 +19,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'latest',
+				data: { header: false, taxSlider: true},
 				loadChildren: () => import('../archive/archive.module').then(m => m.ArchivePageModule)
 			},
 			{

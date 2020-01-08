@@ -18,6 +18,7 @@ export class SinglePage implements OnInit, AfterViewChecked {
 	post: Post;
 	loading: boolean;
 	postImage: any;
+	pageId: number;
 
 	constructor(
 		private postService: PostService,
@@ -30,15 +31,28 @@ export class SinglePage implements OnInit, AfterViewChecked {
 
 	ngOnInit() {
 		this.loading = true;
-		this.postId = +this.route.snapshot.paramMap.get('id');
-		this.postService.getPost(this.postId).subscribe(post => {
-			this.post = post;
-			this.loading = false;
-			if (this.post.featured_media) {
-				this.postImage = this.sanitizer.
-					bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(this.post._embedded['wp:featuredmedia'][0], 'full')}')`);
-			}
-		});
+		this.postId = +this.route.snapshot.paramMap.get('postId');
+		this.pageId = +this.route.snapshot.paramMap.get('pageId');
+		if (this.postId) {
+			this.postService.getPost(this.postId).subscribe(post => {
+				this.post = post;
+				this.loading = false;
+				if (this.post.featured_media) {
+					this.postImage = this.sanitizer.
+						bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(this.post._embedded['wp:featuredmedia'][0], 'full')}')`);
+				}
+			});
+		}
+		if (this.pageId) {
+			this.postService.getPage(this.pageId).subscribe(post => {
+				this.post = post;
+				this.loading = false;
+				if (this.post.featured_media) {
+					this.postImage = this.sanitizer.
+						bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(this.post._embedded['wp:featuredmedia'][0], 'full')}')`);
+				}
+			});
+		}
 	}
 
 	ngAfterViewChecked(): void {

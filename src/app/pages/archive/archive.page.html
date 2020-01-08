@@ -1,4 +1,14 @@
+
 <ion-content>
+	<ion-toolbar class="header" *ngIf="view.header.enabled">
+		<ion-buttons slot=start>
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{view.header.title}}</ion-title>
+	</ion-toolbar>
+	<div *ngIf="view.taxSlider.enabled">
+		<app-taxonomy-slider taxonomy="categories" (termSelected)="selectNewCategory($event, 'categories')"></app-taxonomy-slider>
+	</div>
 	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
 		<ion-refresher-content></ion-refresher-content>
 	</ion-refresher>

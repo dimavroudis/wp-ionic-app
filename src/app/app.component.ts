@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
+import { SettingsService } from './services/settings.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class AppComponent {
 		private splashscreen: SplashScreen,
 		private statusBar: StatusBar,
 		private toastCtrl: ToastController,
-		private network: Network
+		private network: Network,
+		private settings: SettingsService
 	) {
 		this.initializeApp();
 	}
@@ -50,6 +52,8 @@ export class AppComponent {
 
 			// the lang to use, if the lang isn't available, it will use the current loader to get them
 			this.translate.use('en');
+
+			this.settings.getAppInfo().subscribe();
 		});
 	}
 

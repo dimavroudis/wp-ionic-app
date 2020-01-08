@@ -1,0 +1,23 @@
+:host{
+	display: block;
+	background:  var(--ion-toolbar-background);
+}
+
+button{
+	padding: 1em 1.2em;
+	outline: 0;
+	background: transparent;
+	color: var(--ion-toolbar-color);
+	border-bottom: 3px solid transparent;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	&.selected{
+		border-color: var(--ion-toolbar-color);
+	}
+}
+
+.swiper-slide { 
+	width: auto;
+}

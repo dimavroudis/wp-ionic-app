@@ -41,7 +41,7 @@ export class PostService {
 			throw Error('No page ID defined');
 		}
 		args = Object.assign(args, { _embed: true });
-		return this.api.get('wp/v2/pages/' + id);
+		return this.api.get('wp/v2/pages/' + id, args);
 	}
 
 	search(searchString: string, args?: any): Observable<SearchResult[]> {

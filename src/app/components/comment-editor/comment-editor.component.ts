@@ -41,6 +41,6 @@ export class CommentEditorComponent implements OnInit {
 		if (this.parentId) {
 			comment['parent'] = this.parentId;
 		}
-		// this.commentService.createComment(this.comment).subscribe(res => console.log(res));
+		this.commentService.createComment(this.comment).subscribe();
 	}
 }

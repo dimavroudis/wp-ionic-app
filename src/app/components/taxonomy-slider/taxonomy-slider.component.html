@@ -1,3 +1,8 @@
-<p>
-  taxonomy-slider works!
-</p>
+<ion-slides pager="false" [options]="slideOpts">
+	<ion-slide>
+		<button [ngClass]="{'selected': !selectedTerm}" (click)="selectTerm()">{{'Home' | translate}}</button>
+	</ion-slide>
+	<ion-slide *ngFor="let term of terms">
+		<button (click)="selectTerm(term)" [ngClass]="{'selected': selectedTerm === term.id}">{{term.name}}</button>
+	</ion-slide>
+</ion-slides>

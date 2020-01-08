@@ -2,34 +2,36 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-
-	{ path: '', loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule) },
 	{
-		path: 'post',
-		children: [
-			{
-				path: ':id',
-				children: [
-					{ path: '', loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule) },
-					{ path: 'comments', loadChildren: () => import('./pages/comments/comments.module').then(m => m.CommentsPageModule) }
-				]
-			},
-			{
-				path: '',
-				redirectTo: 'tabs',
-				pathMatch: 'full'
-			},
-		]
+		path: '',
+		loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
 	},
 	{
-		path: 'page/:id',
+		path: 'post/:postId',
+		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
+	},
+	{
+		path: 'page/:pageId',
 		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
 	},
 	{
 		path: 'search',
 		loadChildren: () => import('./pages/search/search.module').then(m => m.SearchPageModule)
 	},
-	{ path: 'comment/:id', loadChildren: () => import('./pages/comment/comment.module').then(m => m.CommentPageModule) },
+	{
+		path: 'tax/:taxonomy/term/:termId',
+		data: { header: true, taxSlider: false},
+		children: [
+			{
+				path: '',
+				loadChildren: () => import('./pages/archive/archive.module').then(m => m.ArchivePageModule)
+			},
+			{
+				path: 'exclude/:excludeId',
+				loadChildren: () => import('./pages/archive/archive.module').then(m => m.ArchivePageModule)
+			}
+		]
+	}
 ];
 
 @NgModule({

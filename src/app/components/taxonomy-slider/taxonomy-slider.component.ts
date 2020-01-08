@@ -1,27 +1,42 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TaxonomyService } from 'src/app/services/taxonomy.service';
+import { Term } from 'src/app/models/wordpress';
 
 @Component({
-  selector: 'app-taxonomy-slider',
-  templateUrl: './taxonomy-slider.component.html',
-  styleUrls: ['./taxonomy-slider.component.scss'],
+	selector: 'app-taxonomy-slider',
+	templateUrl: './taxonomy-slider.component.html',
+	styleUrls: ['./taxonomy-slider.component.scss'],
 })
 export class TaxonomySliderComponent implements OnInit {
 
-	@Input() terms: any[];
-	loading: boolean;
+	@Input() taxonomy: string;
+	@Input() terms: Term[];
+	@Input() selectedTerm: number;
+	@Output() termSelected = new EventEmitter();
+
 	slideOpts = {
 		initialSlide: 0,
 		speed: 400,
-		spaceBetween: 15,
-		slidesPerView: 2.5
+		spaceBetween: 0,
+		slidesPerView: 'auto',
+		slideToClickedSlide: true,
+		centeredSlides: true,
+		centeredSlidesBounds: true
 	};
 
-	constructor() {
-		this.loading = true;
+	constructor(private taxonomyService: TaxonomyService) { }
+
+	ngOnInit() {
+		this.taxonomyService.getTaxonomyTerms(this.taxonomy).subscribe(
+			data => {
+				this.terms = data.filter(term => term.count > 0);
+			}
+		);
 	}
 
-	ngOnInit(){
-		
+	selectTerm(term?: Term) {
+		this.selectedTerm = term ? term.id : 0;
+		this.termSelected.emit(term);
 	}
 
 }

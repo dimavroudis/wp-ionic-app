@@ -4,24 +4,34 @@
 			<ion-back-button></ion-back-button>
 			<app-share [link]="post.link" color='light'></app-share>
 		</div>
-		
 	</div>
 	<div *ngIf="post">
-		<header class="ion-padding">
-			<p class="category" *ngIf="post.categories" [innerHTML]="post._embedded['wp:term'][0][0].name"></p>
+
+		<header class="ion-padding" *ngIf="postId">
+			<p class="category" *ngFor="let category of (post.categories ? post._embedded['wp:term'][0].slice(0,1): [])"
+				[routerLink]="['/tax', 'categories', 'term', category.id, 'exclude', postId]"
+				routerDirection="forward" [innerHTML]="category.name"></p>
 			<h1 [innerHTML]="post.title.rendered"></h1>
 			<p class="meta">
 				{{'publised' | translate}} {{post.date | amTimeAgo}}
-				<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span [innerHTML]="post._embedded.author[0].name"></span></ng-template>
+				<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span
+						[innerHTML]="post._embedded.author[0].name"></span></ng-template>
 			</p>
 			<div *ngIf="post.tags">
 				<ion-chip color="primary" outline="true" *ngFor="let tag of post._embedded['wp:term'][1]">
-					<ion-label [innerHTML]="tag.name"></ion-label>
+					<ion-label [routerLink]="['/tax', 'tags', 'term', tag.id, 'exclude', postId]"
+						routerDirection="forward" [innerHTML]="tag.name"></ion-label>
 				</ion-chip>
 			</div>
 		</header>
+
+		<header class="ion-padding" *ngIf="pageId">
+			<h1 [innerHTML]="post.title.rendered"></h1>
+		</header>
+
 		<article class="ion-padding" [innerHTML]="post.content.rendered"></article>
-		<footer class="ion-padding">
+
+		<footer class="ion-padding" *ngIf="postId">
 			<ng-template [ngIf]="post.comment_status === 'open'">
 				<app-comment-list [postId]="post.id"></app-comment-list>
 			</ng-template>
