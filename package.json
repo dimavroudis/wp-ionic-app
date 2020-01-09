@@ -33,6 +33,7 @@
 		"cordova-android": "8.1.0",
 		"cordova-plugin-x-socialsharing": "^5.6.3",
 		"core-js": "^2.5.4",
+		"es6-promise-plugin": "^4.2.2",
 		"moment": "^2.24.0",
 		"ngx-moment": "^3.5.0",
 		"prismjs": "^1.17.1",
@@ -75,7 +76,9 @@
 	},
 	"cordova": {
 		"plugins": {
-			"cordova-plugin-x-socialsharing": {},
+			"cordova-plugin-x-socialsharing": {
+				"ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
+			},
 			"cordova-plugin-whitelist": {},
 			"cordova-plugin-statusbar": {},
 			"cordova-plugin-device": {},
