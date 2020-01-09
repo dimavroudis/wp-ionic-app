@@ -10,6 +10,7 @@ import { AppInfo } from '../models/wordpress';
 export class SettingsService {
 
 	private appInfo: AppInfo;
+	private pluginInfo: any;
 
 	constructor(private api: ApiService) { }
 
@@ -18,6 +19,19 @@ export class SettingsService {
 			return of(this.appInfo);
 		} else {
 			return this.api.get('').pipe(
+				map((res: any) => {
+					this.appInfo =  res;
+					return res;
+				})
+			);
+		}
+	}
+
+	getPluginInfo(): Observable<any>{
+		if (this.appInfo) {
+			return of(this.appInfo);
+		} else {
+			return this.api.get('wpionic/v1').pipe(
 				map((res: any) => {
 					this.appInfo =  res;
 					return res;
