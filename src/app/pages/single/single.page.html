@@ -1,40 +1,92 @@
 <ion-content>
-	<div class="overlay-header" *ngIf="post" [style.backgroundImage]="postImage">
-		<div class="top">
-			<ion-back-button></ion-back-button>
-			<app-share [link]="post.link" color='light'></app-share>
+	<article *ngIf="post">
+		<div class="overlay-header" [ngClass]="{'hasImage': post.featured_media}" [style.backgroundImage]="postImage">
+			<div class="top">
+				<ion-back-button></ion-back-button>
+				<app-share [link]="post.link" [color]="post.featured_media? 'light' : 'primary'"></app-share>
+			</div>
 		</div>
-	</div>
-	<div *ngIf="post">
+		<div>
+			<header class="ion-padding" *ngIf="postId">
+				<p class="categories">
+					<span class="category"
+						*ngFor="let category of (post.categories ? post._embedded['wp:term'][0] : [])">
+						<a [routerLink]="['/tax', 'categories', 'term', category.id, 'exclude', postId]"
+							routerDirection="forward" [innerHTML]="category.name"></a>
+					</span>
+				</p>
+				<h1 [innerHTML]="post.title.rendered"></h1>
+				<p class="meta">
+					{{'publised' | translate}} {{post.date | amTimeAgo}}
+					<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span
+							[innerHTML]="post._embedded.author[0].name"></span></ng-template>
+				</p>
+				<div *ngIf="post.tags">
+					<ion-chip color="primary" outline="true" *ngFor="let tag of post._embedded['wp:term'][1]">
+						<ion-label [routerLink]="['/tax', 'tags', 'term', tag.id, 'exclude', postId]"
+							routerDirection="forward" [innerHTML]="tag.name"></ion-label>
+					</ion-chip>
+				</div>
+			</header>
 
-		<header class="ion-padding" *ngIf="postId">
-			<p class="category" *ngFor="let category of (post.categories ? post._embedded['wp:term'][0].slice(0,1): [])"
-				[routerLink]="['/tax', 'categories', 'term', category.id, 'exclude', postId]"
-				routerDirection="forward" [innerHTML]="category.name"></p>
-			<h1 [innerHTML]="post.title.rendered"></h1>
-			<p class="meta">
-				{{'publised' | translate}} {{post.date | amTimeAgo}}
-				<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span
-						[innerHTML]="post._embedded.author[0].name"></span></ng-template>
-			</p>
-			<div *ngIf="post.tags">
-				<ion-chip color="primary" outline="true" *ngFor="let tag of post._embedded['wp:term'][1]">
-					<ion-label [routerLink]="['/tax', 'tags', 'term', tag.id, 'exclude', postId]"
-						routerDirection="forward" [innerHTML]="tag.name"></ion-label>
-				</ion-chip>
+			<header class="ion-padding" *ngIf="pageId">
+				<h1 [innerHTML]="post.title.rendered"></h1>
+			</header>
+
+			<div class="ion-padding" [innerHTML]="post.content.rendered"></div>
+
+			<footer class="ion-padding" *ngIf="postId">
+				<ng-template [ngIf]="post.comment_status === 'open'">
+					<app-comment-list [postId]="post.id"></app-comment-list>
+				</ng-template>
+			</footer>
+		</div>
+	</article>
+	<div *ngIf="!post">
+		<ion-skeleton-text animated style="width: 100%;padding-bottom: 65%;margin-bottom: 30px;"></ion-skeleton-text>
+		<header class="ion-padding-horizontal">
+			<ion-skeleton-text animated style="width: 50%;margin-bottom: 15px;"></ion-skeleton-text>
+			<ion-skeleton-text animated style="width: 90%;height: 30px;"></ion-skeleton-text>
+			<ion-skeleton-text animated style="width: 70%;height: 30px;margin-bottom: 15px;"></ion-skeleton-text>
+			<ion-skeleton-text animated style="width: 90%;margin-bottom: 15px;"></ion-skeleton-text>
+			<div>
+				<ion-skeleton-text animated
+					style="display: inline-block;height: 30px;width: 25%;border-radius:15px;margin-right: 15px;">
+				</ion-skeleton-text>
+				<ion-skeleton-text animated
+					style="display: inline-block;height: 30px;width: 20%;border-radius:15px;margin-right: 15px;">
+				</ion-skeleton-text>
+				<ion-skeleton-text animated style="display: inline-block;height: 30px;width: 30%;border-radius:15px;">
+				</ion-skeleton-text>
 			</div>
 		</header>
+		<div class="ion-padding-top">
+			<p class="ion-padding-horizontal">
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+			</p>
+			<p class="ion-padding-horizontal">
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+			</p>
+			<p class="ion-padding-horizontal">
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 90%;"></ion-skeleton-text>
+				<ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+			</p>
+		</div>
 
-		<header class="ion-padding" *ngIf="pageId">
-			<h1 [innerHTML]="post.title.rendered"></h1>
-		</header>
-
-		<article class="ion-padding" [innerHTML]="post.content.rendered"></article>
-
-		<footer class="ion-padding" *ngIf="postId">
-			<ng-template [ngIf]="post.comment_status === 'open'">
-				<app-comment-list [postId]="post.id"></app-comment-list>
-			</ng-template>
-		</footer>
 	</div>
 </ion-content>

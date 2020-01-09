@@ -1,7 +1,7 @@
 export interface AppInfo {
 	name: string;
 	description: string;
-	ulr: string;
+	url: string;
 	gmt_offset: string;
 	timezone_string: string;
 }

@@ -1,25 +1,69 @@
-
-<ion-content>
-	<ion-toolbar class="header" *ngIf="view.header.enabled">
+<ion-header>
+	<ion-toolbar *ngIf="view.header.enabled">
 		<ion-buttons slot=start>
 			<ion-back-button></ion-back-button>
 		</ion-buttons>
 		<ion-title>{{view.header.title}}</ion-title>
 	</ion-toolbar>
-	<div *ngIf="view.taxSlider.enabled">
-		<app-taxonomy-slider taxonomy="categories" (termSelected)="selectNewCategory($event, 'categories')"></app-taxonomy-slider>
-	</div>
+	<ion-toolbar class="tax-toolbar" *ngIf="view.taxSlider.enabled">
+		<app-taxonomy-slider taxonomy="categories" (termSelected)="selectNewCategory($event, 'categories')">
+		</app-taxonomy-slider>
+	</ion-toolbar>
+</ion-header>
+<ion-content>
+
 	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
 		<ion-refresher-content></ion-refresher-content>
 	</ion-refresher>
-	<ng-template [ngIf]="!loading && posts">
-		<app-post-card *ngFor="let post of posts" [post]="post"></app-post-card>
+	<ng-template [ngIf]="!loading && posts.length > 0">
+		<ion-grid>
+			<ion-row>
+				<ion-col size="12" size-md="6" *ngFor="let post of posts">
+					<app-post-card [post]="post"></app-post-card>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ng-template>
+	<ng-template [ngIf]="!loading && posts.length === 0">
+		<div class="ion-padding ion-margin-vertical">
+			<p class="lead">
+				{{'There were no posts found for this term.' | translate}} 
+				{{'Go back and try another category or tag.' | translate}}
+			</p>
+		</div>
+		<div class="ion-text-center">
+			<ion-button size="large" (click)="goBack()">{{'Go Back' | translate}}</ion-button>
+		</div>
 	</ng-template>
 	<ng-template [ngIf]="loading">
-		<app-skeleton-card></app-skeleton-card>
-		<app-skeleton-card></app-skeleton-card>
-		<app-skeleton-card></app-skeleton-card>
-		<app-skeleton-card></app-skeleton-card>
+		<ion-grid>
+			<ion-row>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+				<ion-col size="12" size-md="6">
+					<app-skeleton-card style="display:block;height: 380px;"></app-skeleton-card>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
 	</ng-template>
 	<ion-infinite-scroll (ionInfinite)="getNextPage($event)" [disabled]="lastPage">
 		<ion-infinite-scroll-content></ion-infinite-scroll-content>

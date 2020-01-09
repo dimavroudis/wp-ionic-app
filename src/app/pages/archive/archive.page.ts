@@ -3,6 +3,7 @@ import { PostService } from 'src/app/services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { TaxonomyService } from 'src/app/services/taxonomy.service';
 import { Post, Term } from 'src/app/models/wordpress';
+import { NavController } from '@ionic/angular';
 
 @Component({
 	selector: 'app-archive',
@@ -19,17 +20,22 @@ export class ArchivePage implements OnInit {
 	args: any;
 	loading: boolean;
 	lastPage: boolean;
-	view: { header: { enabled: boolean, title: string }, taxSlider: { enabled: boolean } }
+	view: { header: { enabled: boolean, title: string }, taxSlider: { enabled: boolean } };
 	excludeId: number;
 
-	constructor(private postService: PostService, private taxonomyService: TaxonomyService, private route: ActivatedRoute) {
+	constructor(
+		private postService: PostService,
+		private taxonomyService: TaxonomyService,
+		private route: ActivatedRoute,
+		private navCtrl: NavController
+	) {
 	}
 
 	ngOnInit(): void {
 		this.args = this.route.snapshot.data.args;
 		this.view = {
 			header: {
-				enabled:  this.route.snapshot.data.header,
+				enabled: this.route.snapshot.data.header,
 				title: ''
 			},
 			taxSlider: {
@@ -96,6 +102,10 @@ export class ArchivePage implements OnInit {
 				this.lastPage = true;
 			}
 		});
+	}
+
+	goBack() {
+		this.navCtrl.back();
 	}
 }
 
