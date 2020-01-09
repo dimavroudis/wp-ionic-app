@@ -13,7 +13,21 @@ export class PostSliderComponent implements OnInit {
 		initialSlide: 0,
 		speed: 400,
 		spaceBetween: 10,
-		slidesPerView: 1.2
+		slidesPerView: 2.5,
+		breakpoints: {
+			320: {
+				slidesPerView: 1,
+			},
+			420: {
+				slidesPerView: 1.2,
+			},
+			620: {
+				slidesPerView: 1.5,
+			},
+			768: {
+				slidesPerView: 2,
+			}
+		}
 	};
 
 	constructor(private media: MediaService, private sanitizer: DomSanitizer) {

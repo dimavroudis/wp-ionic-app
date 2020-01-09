@@ -17,6 +17,7 @@
 	}
 
 	&.hasImage {
+		max-height: 40vh;
 		padding-bottom: calc(65% - 80px);
 		background-size: cover;
 		background-position: center;
