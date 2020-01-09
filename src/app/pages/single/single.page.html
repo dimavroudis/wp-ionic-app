@@ -1,16 +1,20 @@
 <ion-content>
-	<div class="overlay-header" *ngIf="post" [style.backgroundImage]="postImage">
+	<div class="overlay-header" [ngClass]="{'hasImage': post.featured_media}" *ngIf="post"
+		[style.backgroundImage]="postImage">
 		<div class="top">
 			<ion-back-button></ion-back-button>
-			<app-share [link]="post.link" color='light'></app-share>
+			<app-share [link]="post.link" [color]="post.featured_media? 'light' : 'primary'"></app-share>
 		</div>
 	</div>
 	<div *ngIf="post">
 
 		<header class="ion-padding" *ngIf="postId">
-			<p class="category" *ngFor="let category of (post.categories ? post._embedded['wp:term'][0].slice(0,1): [])"
-				[routerLink]="['/tax', 'categories', 'term', category.id, 'exclude', postId]"
-				routerDirection="forward" [innerHTML]="category.name"></p>
+			<p class="categories">
+				<span class="category" *ngFor="let category of (post.categories ? post._embedded['wp:term'][0] : [])">
+					<a [routerLink]="['/tax', 'categories', 'term', category.id, 'exclude', postId]"
+						routerDirection="forward" [innerHTML]="category.name"></a>
+				</span>
+			</p>
 			<h1 [innerHTML]="post.title.rendered"></h1>
 			<p class="meta">
 				{{'publised' | translate}} {{post.date | amTimeAgo}}

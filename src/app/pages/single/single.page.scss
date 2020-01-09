@@ -1,25 +1,9 @@
 .overlay-header {
 	position: relative;
 	width: 100%;
-	padding-bottom: 65%;
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-
-	&::before {
-		content: "";
-		height: 100%;
-		width: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		background: linear-gradient(rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 60%);
-	}
 
 	.top {
-		position: absolute;
-		left: 0;
-		top: 0;
+		position: relative;
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
@@ -27,10 +11,30 @@
 		padding: var(--ion-padding);
 	}
 
-	ion-back-button,
-	app-share {
+	ion-back-button {
 		display: block;
-		--color: var(--ion-color-light);
+		--color: var(--ion-color-primary);
+	}
+
+	&.hasImage {
+		padding-bottom: calc(65% - 80px);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+
+		&::before {
+			content: "";
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: linear-gradient(rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 60%);
+		}
+
+		ion-back-button {
+			--color: var(--ion-color-light);
+		}
 	}
 }
 
@@ -41,9 +45,27 @@ header {
 		margin-top: 0;
 	}
 
-	.category {
-		font-size: 1.2em;
+	.categories {
 		margin-bottom: 0.5em;
+	}
+
+	.category {
+		display: inline-block;
+		font-size: 1.2em;
+		outline: 0;
+
+		&:not(:last-child) {
+			&:after {
+				content: "/";
+				margin-left: 0.3em;
+				margin-right: 0.3em;
+			}
+		}
+
+		a {
+			color: var(--ion-color-dark);
+			text-decoration: none;
+		}
 	}
 
 	.meta {
