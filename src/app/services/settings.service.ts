@@ -20,20 +20,20 @@ export class SettingsService {
 		} else {
 			return this.api.get('').pipe(
 				map((res: any) => {
-					this.appInfo =  res;
+					this.appInfo = res;
 					return res;
 				})
 			);
 		}
 	}
 
-	getPluginInfo(): Observable<any>{
-		if (this.appInfo) {
-			return of(this.appInfo);
+	getPluginInfo(): Observable<any> {
+		if (this.pluginInfo) {
+			return of(this.pluginInfo);
 		} else {
 			return this.api.get('wpionic/v1').pipe(
 				map((res: any) => {
-					this.appInfo =  res;
+					this.pluginInfo = res;
 					return res;
 				})
 			);
