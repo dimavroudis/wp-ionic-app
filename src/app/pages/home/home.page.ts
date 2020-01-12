@@ -33,10 +33,6 @@ export class HomePage implements OnInit {
 				}
 			}
 		});
-		this.settings.getAppInfo().subscribe(data => {
-			this.title = data.name;
-			this.description = data.description;
-		});
 	}
 
 }
