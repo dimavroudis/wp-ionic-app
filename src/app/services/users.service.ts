@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { map } from 'rxjs/operators';
 import { User } from '../models/wordpress';
@@ -8,6 +8,9 @@ import { User } from '../models/wordpress';
 	providedIn: 'root'
 })
 export class UsersService {
+
+	private user: User;
+	public isLogged = false;
 
 	constructor(private api: ApiService) { }
 
@@ -24,6 +27,34 @@ export class UsersService {
 			throw Error('No media ID defined');
 		}
 		return this.api.get('wp/v2/users/' + id, args);
+	}
+
+	me(): Observable<User> {
+		if (this.user) {
+			return of(this.user);
+		} else {
+			return this.api.get('wp/v2/users/me').pipe(
+				map(res => {
+					this.user = res;
+					return res;
+				})
+			);
+		}
+	}
+
+	login(username, password): Observable<any> {
+		return this.api.getToken(username, password).pipe(
+			map(res => {
+				this.isLogged = true;
+				return res;
+			})
+		);
+	}
+
+	logOut(): boolean {
+		this.isLogged = false;
+		this.api.deleteToken();
+		return true;
 	}
 
 }
