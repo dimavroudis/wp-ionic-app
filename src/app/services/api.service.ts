@@ -14,6 +14,8 @@ export class ApiService {
 	private isHttps: boolean;
 	private url: string;
 
+	private token: string;
+
 	constructor(private http: HttpClient, private translate: TranslateService) {
 
 		// The path of endpoints
@@ -28,6 +30,9 @@ export class ApiService {
 			reqOpts = {
 				responseType: 'json',
 			};
+		}
+		if (this.token) {
+			reqOpts.Authentication = this.token;
 		}
 		// Support easy query params for GET requests
 		reqOpts.params = new HttpParams();
@@ -44,23 +49,56 @@ export class ApiService {
 	}
 
 	post(endpoint: string, body: any, reqOpts?: any): Observable<any> {
+		if (this.token) {
+			reqOpts.Authentication = this.token;
+		}
 		return this.http.post(this.url + '/' + endpoint, body, reqOpts);
 	}
 
 	put(endpoint: string, body: any, reqOpts?: any): Observable<any> {
+		if (this.token) {
+			reqOpts.Authentication = this.token;
+		}
 		return this.http.put(this.url + '/' + endpoint, body, reqOpts);
 	}
 
 	delete(endpoint: string, reqOpts?: any): Observable<any> {
+		if (this.token) {
+			reqOpts.Authentication = this.token;
+		}
 		return this.http.delete(this.url + '/' + endpoint, reqOpts);
 	}
 
 	patch(endpoint: string, body: any, reqOpts?: any) {
+		if (this.token) {
+			reqOpts.Authentication = this.token;
+		}
 		return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
 	}
 
 	getLang(): string {
 		return this.translate.currentLang;
+	}
+
+	getToken(username: string, password: string): Observable<any> {
+		return this.post('wt-auth/v1/token', { username, password }).pipe(
+			map(res => {
+				if (res.token) {
+					this.token = res.token;
+					return res;
+				} else {
+					return Error('Unexpexted Error while logging in');
+				}
+			}),
+			catchError((err, caught) => {
+				return caught;
+			})
+		);
+	}
+
+
+	deleteToken() {
+		this.token = '';
 	}
 
 	setDomain(domain) {
@@ -87,7 +125,7 @@ export class ApiService {
 		return this.domain ? true : false;
 	}
 
-	getDomain(){
+	getDomain() {
 		return this.domain;
 	}
 }
