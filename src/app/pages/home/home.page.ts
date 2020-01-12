@@ -12,18 +12,26 @@ export class HomePage implements OnInit {
 
 	title: string;
 	description: string;
-	stickyPosts: Post[];
+	featuredPosts: Post[];
 	latestPosts: Post[];
 
-	constructor(private post: PostService, private settings: SettingsService) {
+	constructor(private post: PostService, private settingsService: SettingsService) {
 	}
 
 	ngOnInit() {
-		this.post.getPosts().subscribe(async posts => {
+		this.post.getPosts().subscribe(posts => {
 			this.latestPosts = posts;
 		});
-		this.post.getPosts({ sticky: true }).subscribe(async posts => {
-			this.stickyPosts = posts;
+		this.settingsService.settings.subscribe(appInfo => {
+			if (appInfo) {
+				this.title = appInfo.name;
+				this.description = appInfo.description;
+				if (appInfo.homeTab && appInfo.homeTab.featuredPosts.length > 0) {
+					this.post.getPosts({ include: appInfo.homeTab.featuredPosts.toString() }).subscribe(posts => {
+						this.featuredPosts = posts;
+					});
+				}
+			}
 		});
 		this.settings.getAppInfo().subscribe(data => {
 			this.title = data.name;

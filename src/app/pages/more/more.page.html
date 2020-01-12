@@ -1,7 +1,7 @@
 <ion-content>
 	<ion-list>
-		<ion-item [routerLink]="['/page', '638']">
-			<ion-label>Term of Use</ion-label>
+		<ion-item *ngFor="let page of pages" [routerLink]="['/page', page.id]">
+			<ion-label [innerHtml]="page.title.rendered"></ion-label>
 		</ion-item>
 	</ion-list>
 </ion-content>

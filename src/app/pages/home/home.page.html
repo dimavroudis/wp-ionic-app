@@ -2,12 +2,12 @@
 	<div class="ion-padding">
 		<h2 class="display-1">{{description}}</h2>
 	</div>
-	<div class="ion-margin-bottom" *ngIf="stickyPosts?.length">
-		<h2 class="ion-padding-horizontal">{{'trending-articles' | translate }}</h2>
-		<app-post-slider [posts]="stickyPosts"></app-post-slider>
+	<div class="ion-margin-bottom" *ngIf="featuredPosts?.length">
+		<h2 class="ion-padding-horizontal">{{'Trending Articles' | translate }}</h2>
+		<app-post-slider [posts]="featuredPosts"></app-post-slider>
 	</div>
 	<div class="ion-margin-bottom" *ngIf="latestPosts?.length">
-		<h2 class="ion-padding-horizontal">{{'latest-articles' | translate }}</h2>
+		<h2 class="ion-padding-horizontal">{{'Latest Articles' | translate }}</h2>
 		<app-post-slider [posts]="latestPosts"></app-post-slider>
 	</div>
 </ion-content>

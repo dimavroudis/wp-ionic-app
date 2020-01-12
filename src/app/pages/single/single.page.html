@@ -17,7 +17,7 @@
 				</p>
 				<h1 [innerHTML]="post.title.rendered"></h1>
 				<p class="meta">
-					{{'publised' | translate}} {{post.date | amTimeAgo}}
+					{{'Published' | translate}} {{post.date | amTimeAgo}}
 					<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span
 							[innerHTML]="post._embedded.author[0].name"></span></ng-template>
 				</p>
@@ -36,7 +36,7 @@
 			<div class="ion-padding" [innerHTML]="post.content.rendered"></div>
 
 			<footer class="ion-padding" *ngIf="postId">
-				<ng-template [ngIf]="post.comment_status === 'open'">
+				<ng-template [ngIf]="isCommentsEnabled && post.comment_status === 'open'">
 					<app-comment-list [postId]="post.id"></app-comment-list>
 				</ng-template>
 			</footer>

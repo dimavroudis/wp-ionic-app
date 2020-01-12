@@ -4,7 +4,7 @@
 		<ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
 		<p class="ion-margin-bottom" >
 			<ng-template [ngIf]="post.categories"><span [innerHTML]="post._embedded['wp:term'][0][0].name"></span></ng-template>
-			{{'publised' | translate}} {{post.date | amTimeAgo}} 
+			{{'Published' | translate}} {{post.date | amTimeAgo}} 
 			<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span [innerHTML]="post._embedded.author[0].name"></span></ng-template>
 		</p>
 		<div class="excerpt" *ngIf="post.excerpt.rendered" [innerHTML]="post.excerpt.rendered"></div>

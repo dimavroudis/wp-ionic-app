@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { AppInfo } from '../models/wordpress';
 
 @Injectable({
@@ -10,17 +10,35 @@ import { AppInfo } from '../models/wordpress';
 export class SettingsService {
 
 	private appInfo: AppInfo;
-	private pluginInfo: any;
+	public settings: BehaviorSubject<AppInfo>;
 
-	constructor(private api: ApiService) { }
+	constructor(private api: ApiService) {
+		this.settings = new BehaviorSubject(this.appInfo);
+	}
 
 	getAppInfo(): Observable<AppInfo> {
+		return this.api.get('wpionic/v1/settings').pipe(
+			map((res: AppInfo) => {
+				this.settings.next(res);
+				this.appInfo = res;
+				return res;
+			}),
+			catchError((err) => {
+				if (err.error.code === 'rest_no_route') {
+					return this.getWpInfo();
+				}
+			})
+		);
+	}
+
+	getWpInfo(): Observable<AppInfo> {
 		if (this.appInfo) {
 			return of(this.appInfo);
 		} else {
 			return this.api.get('').pipe(
-				map((res: any) => {
-					this.appInfo =  res;
+				map((res: AppInfo) => {
+					this.settings.next(res);
+					this.appInfo = res;
 					return res;
 				})
 			);

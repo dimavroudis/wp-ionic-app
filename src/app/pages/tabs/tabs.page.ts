@@ -10,14 +10,18 @@ export class TabsPage implements OnInit {
 
 	title: string;
 	description: string;
+	moreTab: boolean;
 
-	constructor(private settings: SettingsService) {
+	constructor(private settingsService: SettingsService) {
 	}
 
 	ngOnInit() {
-		this.settings.getAppInfo().subscribe(app => {
-			this.title = app.name;
-			this.description = app.description;
+		this.settingsService.settings.subscribe(appInfo => {
+			if (appInfo) {
+				this.title = appInfo.name;
+				this.description = appInfo.description;
+				this.moreTab = appInfo.moreTab && appInfo.moreTab.pages.length > 0;
+			}
 		});
 	}
 
