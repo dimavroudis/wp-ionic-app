@@ -1,9 +1,11 @@
 export interface AppInfo {
 	name: string;
 	description: string;
-	url: string;
 	gmt_offset: string;
-	timezone_string: string;
+	comments: 'enabled' | 'disabled';
+	language: string;
+	homeTab: { featuredPosts: string[] };
+	moreTab: { pages: string[] };
 }
 
 export interface Post {

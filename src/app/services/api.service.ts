@@ -23,7 +23,7 @@ export class ApiService {
 		// HTTPS support
 		this.isHttps = true;
 
-		this.url = (this.isHttps ? 'https://' : 'https//') + this.domain + '/' + this.namespace;
+		this.url = (this.isHttps ? 'https://' : 'http://') + this.domain + '/' + this.namespace;
 	}
 
 	get(endpoint: string, params?: any, reqOpts?: any): Observable<any> {
