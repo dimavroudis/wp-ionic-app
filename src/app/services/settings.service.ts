@@ -44,17 +44,4 @@ export class SettingsService {
 			);
 		}
 	}
-
-	getPluginInfo(): Observable<any>{
-		if (this.appInfo) {
-			return of(this.appInfo);
-		} else {
-			return this.api.get('wpionic/v1').pipe(
-				map((res: any) => {
-					this.appInfo =  res;
-					return res;
-				})
-			);
-		}
-	}
 }

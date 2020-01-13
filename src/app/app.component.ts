@@ -36,6 +36,7 @@ export class AppComponent {
 	initializeApp() {
 		this.platform.ready().then(() => {
 			this.statusBar.styleDefault();
+			this.splashscreen.hide();
 
 			// Sets hardware back button
 			this.backButtonEvent();
@@ -43,24 +44,14 @@ export class AppComponent {
 			// Monitors online/offline status
 			this.listenToNetworkChange();
 
-			this.settings.getAppInfo().subscribe(data => {
-				this.splashscreen.hide();
+			// set the languges supported
+			this.translate.addLangs(['en']);
 
-				let language = 'en';
-				if (data.language) {
-					language = data.language;
-				}
+			// this language will be used as a fallback when a translation isn't found in the current language
+			this.translate.setDefaultLang('en');
 
-				// set the languges supported
-				this.translate.addLangs([language]);
-
-				// this language will be used as a fallback when a translation isn't found in the current language
-				this.translate.setDefaultLang('en');
-
-				// the lang to use, if the lang isn't available, it will use the current loader to get them
-				this.translate.use(language);
-
-			});
+			// the lang to use, if the lang isn't available, it will use the current loader to get them
+			this.translate.use('en');
 		});
 	}
 

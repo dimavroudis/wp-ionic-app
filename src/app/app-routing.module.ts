@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DomainGuard } from './guards/domain.guard';
 
 const routes: Routes = [
 	{
@@ -8,22 +9,27 @@ const routes: Routes = [
 	},
 	{
 		path: 'tabs',
+		canActivate: [DomainGuard],
 		loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
 	},
 	{
 		path: 'post/:postId',
+		canActivate: [DomainGuard],
 		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
 	},
 	{
 		path: 'page/:pageId',
+		canActivate: [DomainGuard],
 		loadChildren: () => import('./pages/single/single.module').then(m => m.SinglePageModule)
 	},
 	{
 		path: 'search',
+		canActivate: [DomainGuard],
 		loadChildren: () => import('./pages/search/search.module').then(m => m.SearchPageModule)
 	},
 	{
 		path: 'tax/:taxonomy/term/:termId',
+		canActivate: [DomainGuard],
 		data: { header: true, taxSlider: false },
 		children: [
 			{
