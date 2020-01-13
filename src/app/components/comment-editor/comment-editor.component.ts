@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { CommentService } from 'src/app/services/comment.service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Comment } from 'src/app/models/wordpress';
+import { ToastService } from 'src/app/services/toast.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -17,10 +19,19 @@ export class CommentEditorComponent implements OnInit {
 	@Input() comment: Comment;
 
 	commentForm: FormGroup;
+	successMessage: string;
 
-	constructor(public modalController: ModalController, private commentService: CommentService) { }
+	constructor(
+		public modalController: ModalController,
+		private toast: ToastService,
+		private commentService: CommentService,
+		private translate: TranslateService
+	) { }
 
 	ngOnInit() {
+		this.translate.get('comment-success').subscribe(res => {
+			this.successMessage = res;
+		});
 		this.commentForm = new FormGroup({
 			author_name: new FormControl(this.comment ? this.comment.author_name : '', [Validators.required]),
 			author_email: new FormControl(this.comment ? this.comment.author_email : '', [Validators.required]),
@@ -41,6 +52,9 @@ export class CommentEditorComponent implements OnInit {
 		if (this.parentId) {
 			comment['parent'] = this.parentId;
 		}
-		this.commentService.createComment(comment).subscribe();
+		this.commentService.createComment(comment).subscribe(res => {
+			this.modalController.dismiss(res);
+			this.toast.present(this.successMessage);
+		});
 	}
 }

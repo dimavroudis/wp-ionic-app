@@ -26,7 +26,7 @@ export class CommentService {
 		return this.api.get('wp/v2/comments', args);
 	}
 
-	createComment(args): Observable<Comment[]> {
+	createComment(args): Observable<any> {
 		return this.api.post('wp/v2/comments', args);
 	}
 

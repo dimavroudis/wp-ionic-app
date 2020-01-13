@@ -1,17 +1,17 @@
 <h2>
-	{{'Comments' |translate}}
+	{{'comments' |translate}}
 </h2>
 
 <div class="comments-list" *ngIf="comments">
 	<div *ngFor="let comment of comments">
 		<app-comment-block [comment]="comment"></app-comment-block>
 	</div>
-	<ion-button *ngIf="!isLast" expand="block" fill="clear" (click)="getNextPage()">{{'Load more comments' | translate}}
+	<ion-button *ngIf="!isLast" expand="block" fill="clear" (click)="getNextPage()">{{'more-comments' | translate}}
 	</ion-button>
 </div>
 
 <ng-template [ngIf]="!loading && !comments">
-	<p>{{'Be the first to submit a comment.' | translate}}</p>
+	<p>{{'no-comment-cta' | translate}}</p>
 </ng-template>
 
 <ng-template [ngIf]="loading">
@@ -67,4 +67,4 @@
 	</ion-list>
 </ng-template>
 
-<ion-button expand="block" fill="outline" (click)="openEditor()">{{'Write your comment' | translate}}</ion-button>
+<ion-button expand="block" fill="outline" (click)="openEditor()">{{'write-your-comment' | translate}}</ion-button>

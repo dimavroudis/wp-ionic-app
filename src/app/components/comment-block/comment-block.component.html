@@ -6,15 +6,15 @@
 		<div>
 			<div class="meta">
 				<p class="author" [innerHTML]="comment.author_name"></p>
-				<p class="date">{{'Published' | translate}} {{comment.date | amTimeAgo}}</p>
+				<p class="date">{{'published' | translate}} {{comment.date | amTimeAgo}}</p>
 			</div>
 		</div>
 	</div>
 	<div class="inner" [innerHTML]="comment.content.rendered"></div>
 	<div class="actions">
-		<ion-button fill="clear" size="small" (click)="openEditor()">{{'Reply to' | translate}} {{comment.author_name}}</ion-button>
-		<ion-button fill="clear" size="small" [disabled]="loading" *ngIf="!showReplies && hasReplies" (click)="getChildComments()">{{'Show replies' | translate}}</ion-button>
-		<ion-button fill="clear" size="small" *ngIf="showReplies && hasReplies" (click)="showReplies = false">{{'Hide replies' | translate}}</ion-button>
+		<ion-button fill="clear" size="small" (click)="openEditor()">{{'reply-to' | translate}} {{comment.author_name}}</ion-button>
+		<ion-button fill="clear" size="small" [disabled]="loading" *ngIf="!showReplies && hasReplies" (click)="getChildComments()">{{'show-replies' | translate}}</ion-button>
+		<ion-button fill="clear" size="small" *ngIf="showReplies && hasReplies" (click)="showReplies = false">{{'hide-replies' | translate}}</ion-button>
 	</div>
 	<div class="children" *ngIf="showReplies">
 		<div class="comment" *ngFor="let child of comment.children">
@@ -25,7 +25,7 @@
 				<div>
 					<div class="meta">
 						<p class="author" [innerHTML]="child.author_name"></p>
-						<p class="date">{{'Published' | translate}} {{child.date | amTimeAgo}}</p>
+						<p class="date">{{'published' | translate}} {{child.date | amTimeAgo}}</p>
 					</div>
 				</div>
 			</div>

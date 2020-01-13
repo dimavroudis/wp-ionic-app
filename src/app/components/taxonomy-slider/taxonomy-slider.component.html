@@ -1,6 +1,6 @@
 <ion-slides pager="false" [options]="slideOpts">
 	<ion-slide>
-		<button [ngClass]="{'selected': !selectedTerm}" (click)="selectTerm()">{{'Home' | translate}}</button>
+		<button [ngClass]="{'selected': !selectedTerm}" (click)="selectTerm()">{{'home' | translate}}</button>
 	</ion-slide>
 	<ion-slide *ngFor="let term of terms">
 		<button (click)="selectTerm(term)" [ngClass]="{'selected': selectedTerm === term.id}">{{term.name}}</button>

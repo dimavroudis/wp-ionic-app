@@ -27,12 +27,12 @@
 	<ng-template [ngIf]="!loading && posts.length === 0">
 		<div class="ion-padding ion-margin-vertical">
 			<p class="lead">
-				{{'There were no posts found for this term.' | translate}} 
-				{{'Go back and try another category or tag.' | translate}}
+				{{'empty-archive-1' | translate}} 
+				{{'empty-archive-2' | translate}}
 			</p>
 		</div>
 		<div class="ion-text-center">
-			<ion-button size="large" (click)="goBack()">{{'Go Back' | translate}}</ion-button>
+			<ion-button size="large" (click)="goBack()">{{'go-back' | translate}}</ion-button>
 		</div>
 	</ng-template>
 	<ng-template [ngIf]="loading">
@@ -69,6 +69,6 @@
 		<ion-infinite-scroll-content></ion-infinite-scroll-content>
 	</ion-infinite-scroll>
 	<ng-template *ngIf="lastPage">
-		{{ "No more posts" | translate}}
+		{{ "last-page-notice" | translate}}
 	</ng-template>
 </ion-content>

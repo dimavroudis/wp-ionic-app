@@ -4,7 +4,7 @@
 			<ion-back-button></ion-back-button>
 		</ion-buttons>
 		<ion-searchbar mode="ios" (ionClear)="search()" (ionChange)="search($event.target.value)" [value]="query"
-			showCancelButton="never" debounce="1000" placeholder="{{'Search' | translate}}"></ion-searchbar>
+			showCancelButton="never" debounce="1000" placeholder="{{'search' | translate}}"></ion-searchbar>
 	</ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
 			</ion-item>
 		</ion-list>
 		<div *ngIf="posts.length === 0" class="ion-padding">
-			{{'No posts found.' | translate}}
+			{{'no-results' | translate}}
 		</div>
 		<ion-infinite-scroll (ionInfinite)="nextPage($event)" [disabled]="lastPage">
 			<ion-infinite-scroll-content></ion-infinite-scroll-content>
@@ -25,7 +25,7 @@
 	<ng-template [ngIf]="latestSearches && latestSearches.length && !this.query">
 		<ion-list>
 			<ion-list-header>
-				{{'Latest Searches' | translate}}
+				{{'latest-searches' | translate}}
 			</ion-list-header>
 			<ion-item *ngFor="let searchTerm of latestSearches.slice(0,10)" (click)="search(searchTerm.term)">
 				{{searchTerm.term}}
