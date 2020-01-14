@@ -8,11 +8,15 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: var(--ion-padding);
+	}
+
+	app-share{
+		padding: 10px;
 	}
 
 	ion-back-button {
 		display: block;
+		padding: 10px;
 		--color: var(--ion-color-primary);
 	}
 
