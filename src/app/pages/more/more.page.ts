@@ -10,6 +10,7 @@ import { Post } from 'src/app/models/wordpress';
 })
 export class MorePage implements OnInit {
 	pages: Post[];
+	links: { label: string, url: string, icon: string }[];
 
 	constructor(private settingsService: SettingsService, private post: PostService) { }
 
@@ -19,6 +20,9 @@ export class MorePage implements OnInit {
 				this.post.getPages({ include: appInfo.moreTab.pages.toString() }).subscribe(pages => {
 					this.pages = pages;
 				});
+			}
+			if (appInfo && appInfo.moreTab.links.length > 0) {
+				this.links = appInfo.moreTab.links;
 			}
 		});
 	}

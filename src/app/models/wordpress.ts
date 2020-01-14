@@ -5,7 +5,7 @@ export interface AppInfo {
 	comments: 'enabled' | 'disabled';
 	language: string;
 	homeTab: { featuredPosts: string[] };
-	moreTab: { pages: string[] };
+	moreTab: { pages: string[], links: { label: string, url: string, icon: string }[] };
 	archive: { featuredCategories: string[] };
 }
 

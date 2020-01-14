@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpEvent } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -17,7 +18,7 @@ export class ApiService {
 
 	constructor(private http: HttpClient, private translate: TranslateService) {
 		// Website domain
-		this.domain = 'www.contradodigital.com';
+		this.domain = 'dimitrismavroudis.gr/test';
 
 		// The path of endpoints
 		this.namespace = 'wp-json';
