@@ -6,6 +6,7 @@ export interface AppInfo {
 	language: string;
 	homeTab: { featuredPosts: string[] };
 	moreTab: { pages: string[] };
+	archive: { featuredCategories: string[] };
 }
 
 export interface Post {

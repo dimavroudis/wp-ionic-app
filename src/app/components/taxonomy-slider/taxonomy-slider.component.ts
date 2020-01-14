@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaxonomyService } from 'src/app/services/taxonomy.service';
 import { Term } from 'src/app/models/wordpress';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
 	selector: 'app-taxonomy-slider',
@@ -24,14 +25,24 @@ export class TaxonomySliderComponent implements OnInit {
 		centeredSlidesBounds: true
 	};
 
-	constructor(private taxonomyService: TaxonomyService) { }
+	constructor(private taxonomyService: TaxonomyService, private settingsService: SettingsService) { }
 
 	ngOnInit() {
-		this.taxonomyService.getTaxonomyTerms(this.taxonomy).subscribe(
-			data => {
-				this.terms = data.filter(term => term.count > 0);
+		this.settingsService.settings.subscribe(settings => {
+			if (settings && settings.archive && settings.archive.featuredCategories.length > 0) {
+				this.taxonomyService.getTaxonomyTerms(this.taxonomy, { include: settings.archive.featuredCategories }).subscribe(
+					data => {
+						this.terms = data.filter(term => term.count > 0);
+					}
+				);
+			} else {
+				this.taxonomyService.getTaxonomyTerms(this.taxonomy).subscribe(
+					data => {
+						this.terms = data.filter(term => term.count > 0);
+					}
+				);
 			}
-		);
+		});
 	}
 
 	selectTerm(term?: Term) {
