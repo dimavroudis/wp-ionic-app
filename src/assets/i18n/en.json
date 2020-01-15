@@ -2,7 +2,6 @@
 	"by": "by",
 	"comment-success": "Your comment has been submited succesfully.",
 	"comments": "Comments",
-	"domain": "Domain",
 	"email": "Email",
 	"empty-archive-1": "There were no posts found for this term.",
 	"empty-archive-2": "Go back and try another category or tag.",
@@ -23,9 +22,9 @@
 	"reply-to": "Reply to",
 	"search": "Search",
 	"show-replies": "Show replies",
+	"social-media": "Social Media",
 	"submit-comment": "Submit Comment",
 	"trending-articles": "Trending Articles",
-	"validate-submit": "Validate & Submit",
 	"website": "Website",
 	"write-your-comment": "Write your comment",
 	"your-comment": "Your Comment"

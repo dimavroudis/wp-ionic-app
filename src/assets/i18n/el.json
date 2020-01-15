@@ -2,7 +2,6 @@
 	"by": "από",
 	"comment-success": "Το σχόλιό σας υποβλήθηκε με επιτυχία.",
 	"comments": "Σχόλια",
-	"domain": "Domain",
 	"email": "Email",
 	"empty-archive-1": "Δε βρέθηκαν αναρτήσεις για αυτή την κατηγορία.",
 	"empty-archive-2": "Πηγαίνετε πίσω και δοκιμάστε μια άλλη κατηγορία.",
@@ -23,9 +22,9 @@
 	"reply-to": "Απαντήστε σε",
 	"search": "Αναζήτηση",
 	"show-replies": "Προβολή απαντήσεων",
+	"social-media": "Social Media",
 	"submit-comment": "Υποβολή σχολίου",
 	"trending-articles": "Κορυφαίες αναρτήσεις",
-	"validate-submit": "",
 	"website": "Ιστοσελίδα",
 	"write-your-comment": "Γράψτε το δικό σας σχόλιο",
 	"your-comment": "Τα σχολία σου"
