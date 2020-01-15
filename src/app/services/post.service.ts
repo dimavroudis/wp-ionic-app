@@ -1,15 +1,35 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Post, SearchResult } from '../models/wordpress';
+import { SettingsService } from './settings.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PostService {
+	public featuredPages: BehaviorSubject<Post[]>;
+	public featuredPosts: BehaviorSubject<Post[]>;
 
 
-	constructor(private api: ApiService) { }
+	constructor(private api: ApiService, private settingsService: SettingsService) {
+		this.featuredPosts = new BehaviorSubject(null);
+		this.featuredPages = new BehaviorSubject(null);
+		this.settingsService.settings.subscribe(appInfo => {
+			if (appInfo) {
+				if (appInfo.featured_posts) {
+					this.getPosts({ include: appInfo.featured_posts.toString() }).subscribe(posts => {
+						this.featuredPosts.next(posts);
+					});
+				}
+				if (appInfo.featured_pages) {
+					this.getPages({ include: appInfo.featured_pages.toString() }).subscribe(pages => {
+						this.featuredPages.next(pages);
+					});
+				}
+			}
+		});
+	}
 
 	getPosts(args = {}): Observable<Post[]> {
 		args = Object.assign(args, { _embed: true });

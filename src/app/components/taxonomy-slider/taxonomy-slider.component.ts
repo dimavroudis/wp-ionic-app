@@ -28,19 +28,9 @@ export class TaxonomySliderComponent implements OnInit {
 	constructor(private taxonomyService: TaxonomyService, private settingsService: SettingsService) { }
 
 	ngOnInit() {
-		this.settingsService.settings.subscribe(settings => {
-			if (settings && settings.archive && settings.archive.featuredCategories.length > 0) {
-				this.taxonomyService.getTaxonomyTerms(this.taxonomy, { include: settings.archive.featuredCategories }).subscribe(
-					data => {
-						this.terms = data.filter(term => term.count > 0);
-					}
-				);
-			} else {
-				this.taxonomyService.getTaxonomyTerms(this.taxonomy).subscribe(
-					data => {
-						this.terms = data.filter(term => term.count > 0);
-					}
-				);
+		this.taxonomyService.featuredCategories.subscribe(featuredCategories => {
+			if (featuredCategories && featuredCategories.length) {
+				this.terms = featuredCategories.filter(term => term.count > 0);
 			}
 		});
 	}

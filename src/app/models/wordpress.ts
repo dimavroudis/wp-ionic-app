@@ -4,9 +4,10 @@ export interface AppInfo {
 	gmt_offset: string;
 	comments: 'enabled' | 'disabled';
 	language: string;
-	homeTab: { featuredPosts: string[] };
-	moreTab: { pages: string[], links: { label: string, url: string, icon: string }[] };
-	archive: { featuredCategories: string[] };
+	featured_posts: string[];
+	featured_pages: string[];
+	links: { label: string, url: string, icon: string }[];
+	featured_categories: string[];
 }
 
 export interface Post {

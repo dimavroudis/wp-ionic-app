@@ -1,13 +1,14 @@
 <ion-content>
-	<ion-list  *ngIf="pages && pages.length > 0">
-		<ion-item *ngFor="let page of pages" [routerLink]="['/page', page.id]">
+	<ion-list  *ngIf="featuredPages && featuredPages.length > 0">
+		<ion-item *ngFor="let page of featuredPages" [routerLink]="['/page', page.id]">
 			<ion-label [innerHtml]="page.title.rendered"></ion-label>
 		</ion-item>
 	</ion-list>
 
 	<ion-list *ngIf="links && links.length > 0">
-		<ion-list-header>{{'links' | translate}}</ion-list-header>
-		<ion-item *ngFor="let link of links" [href]="link.url">
+		<ion-list-header>{{'social-media' | translate}}</ion-list-header>
+		<ion-item *ngFor="let link of links" [href]="link.url" lines="none">
+			<ion-icon *ngIf="link.icon" [name]="link.icon" slot="start"></ion-icon>
 			<ion-label [innerHtml]="link.label"></ion-label>
 		</ion-item>
 	</ion-list>

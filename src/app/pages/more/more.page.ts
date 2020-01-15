@@ -9,20 +9,20 @@ import { Post } from 'src/app/models/wordpress';
 	styleUrls: ['./more.page.scss'],
 })
 export class MorePage implements OnInit {
-	pages: Post[];
+	featuredPages: Post[];
 	links: { label: string, url: string, icon: string }[];
 
-	constructor(private settingsService: SettingsService, private post: PostService) { }
+	constructor(private post: PostService, private settingsService: SettingsService) { }
 
 	ngOnInit() {
-		this.settingsService.settings.subscribe(appInfo => {
-			if (appInfo && appInfo.moreTab.pages.length > 0) {
-				this.post.getPages({ include: appInfo.moreTab.pages.toString() }).subscribe(pages => {
-					this.pages = pages;
-				});
+		this.post.featuredPages.subscribe(featuredPages => {
+			if (featuredPages && featuredPages.length) {
+				this.featuredPages = featuredPages;
 			}
-			if (appInfo && appInfo.moreTab.links.length > 0) {
-				this.links = appInfo.moreTab.links;
+		});
+		this.settingsService.settings.subscribe(appInfo => {
+			if (appInfo && appInfo.links) {
+				this.links = appInfo.links;
 			}
 		});
 	}

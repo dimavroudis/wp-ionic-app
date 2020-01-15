@@ -9,18 +9,15 @@ import { SettingsService } from 'src/app/services/settings.service';
 export class TabsPage implements OnInit {
 
 	title: string;
-	description: string;
-	moreTab: boolean;
 
 	constructor(private settingsService: SettingsService) {
+		this.title = '';
 	}
 
 	ngOnInit() {
 		this.settingsService.settings.subscribe(appInfo => {
-			if (appInfo) {
+			if (appInfo && appInfo.name) {
 				this.title = appInfo.name;
-				this.description = appInfo.description;
-				this.moreTab = appInfo.moreTab && appInfo.moreTab.pages.length > 0;
 			}
 		});
 	}

@@ -22,17 +22,20 @@ export class HomePage implements OnInit {
 		this.post.getPosts().subscribe(posts => {
 			this.latestPosts = posts;
 		});
-		this.settingsService.settings.subscribe(appInfo => {
-			if (appInfo) {
-				this.title = appInfo.name;
-				this.description = appInfo.description;
-				if (appInfo.homeTab && appInfo.homeTab.featuredPosts.length > 0) {
-					this.post.getPosts({ include: appInfo.homeTab.featuredPosts.toString() }).subscribe(posts => {
-						this.featuredPosts = posts;
-					});
-				}
+		this.post.featuredPosts.subscribe(featuredPosts => {
+			if (featuredPosts && featuredPosts.length) {
+				this.featuredPosts = featuredPosts;
 			}
 		});
+		this.settingsService.settings.subscribe(appInfo => {
+			if (appInfo) {
+				this.description = appInfo.description || '';
+			}
+		});
+	}
+
+	doRefresh(event) {
+		this.settingsService.getAppInfo().subscribe(() => { }, () => { }, () => event.target.complete());
 	}
 
 }
