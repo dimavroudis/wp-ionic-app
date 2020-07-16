@@ -34,7 +34,6 @@ export class SearchPage implements OnInit {
 			if (data) {
 				this.latestSearches = JSON.parse(data).filter(searchTerm => {
 					const diffTime = this.dateDiffInDays(new Date(searchTerm.date), currentDate);
-					console.log(diffTime);
 					if (diffTime < 7) {
 						return searchTerm;
 					}

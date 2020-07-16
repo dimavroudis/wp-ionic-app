@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Comment } from 'src/app/models/wordpress';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -25,19 +26,26 @@ export class CommentEditorComponent implements OnInit {
 		public modalController: ModalController,
 		private toast: ToastService,
 		private commentService: CommentService,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private user: UsersService
 	) { }
 
 	ngOnInit() {
 		this.translate.get('comment-success').subscribe(res => {
 			this.successMessage = res;
 		});
-		this.commentForm = new FormGroup({
-			author_name: new FormControl(this.comment ? this.comment.author_name : '', [Validators.required]),
-			author_email: new FormControl(this.comment ? this.comment.author_email : '', [Validators.required]),
-			author_url: new FormControl(this.comment ? this.comment.author_url : '', [Validators.required]),
-			content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
-		});
+		if (!this.user.isLogged) {
+			this.commentForm = new FormGroup({
+				author_name: new FormControl(this.comment ? this.comment.author_name : '', [Validators.required]),
+				author_email: new FormControl(this.comment ? this.comment.author_email : '', [Validators.required]),
+				author_url: new FormControl(this.comment ? this.comment.author_url : '', [Validators.required]),
+				content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
+			});
+		} else {
+			this.commentForm = new FormGroup({
+				content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
+			});
+		}
 	}
 
 	dismiss() {

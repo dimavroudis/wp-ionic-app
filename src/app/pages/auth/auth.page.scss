@@ -1,0 +1,6 @@
+ion-button{
+	position: absolute;
+	left: var(--ion-padding);
+	bottom: calc( var(--ion-safe-area-bottom) + var(--ion-padding) );
+	width: calc(100% - var(--ion-padding) * 2 );
+}

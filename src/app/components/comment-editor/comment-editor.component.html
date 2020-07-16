@@ -10,20 +10,20 @@
 <ion-content>
 	<h2 class="ion-padding">{{'leave-reply' | translate}}</h2>
 	<form (ngSubmit)="submit()" [formGroup]="commentForm" class="ion-padding">
-		<ion-item>
+		<ion-item *ngIf="commentForm.controls.content">
 			<ion-label position="floating" for="comment">{{'your-comment' | translate}}</ion-label>
 			<ion-textarea required spellcheck="true" autofocus="true" rows="6" formControlName="content"></ion-textarea>
 		</ion-item>
-		<ion-item>
+		<ion-item *ngIf="commentForm.controls.author_name">
 			<ion-label position="floating" for="name">{{'name' | translate}}*</ion-label>
 			<ion-input required autocomplete="on" formControlName="author_name"></ion-input>
 		</ion-item>
-		<ion-item>
+		<ion-item *ngIf="commentForm.controls.author_email">
 			<ion-label position="floating" for="email">{{'email' | translate}}*</ion-label>
 			<ion-input required autocomplete="on" type="email" inputmode="email" formControlName="author_email">
 			</ion-input>
 		</ion-item>
-		<ion-item>
+		<ion-item *ngIf="commentForm.controls.author_url">
 			<ion-label position="floating" for="url">{{'website' | translate}}</ion-label>
 			<ion-input autocomplete="on" type="url" inputmode="url" formControlName="author_url"></ion-input>
 		</ion-item>

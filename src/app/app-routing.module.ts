@@ -20,7 +20,7 @@ const routes: Routes = [
 	},
 	{
 		path: 'tax/:taxonomy/term/:termId',
-		data: { header: true, taxSlider: false},
+		data: { header: true, taxSlider: false },
 		children: [
 			{
 				path: '',
@@ -31,6 +31,18 @@ const routes: Routes = [
 				loadChildren: () => import('./pages/archive/archive.module').then(m => m.ArchivePageModule)
 			}
 		]
+	},
+	{
+		path: 'auth',
+		loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule)
+	},
+	{
+		path: 'settings',
+		loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsPageModule)
+	},
+	{
+		path: 'profile',
+		loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
 	}
 ];
 

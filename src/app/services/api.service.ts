@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpEvent } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ApiService {
 
 	constructor(private http: HttpClient, private translate: TranslateService) {
 		// Website domain
-		this.domain = 'dimitrismavroudis.gr/test';
+		this.domain = 'www.projectparenting.gr';
 
 		// The path of endpoints
 		this.namespace = 'wp-json';
@@ -36,7 +36,7 @@ export class ApiService {
 			};
 		}
 		if (this.token) {
-			reqOpts.Authentication = this.token;
+			reqOpts['Authentication'] = this.token;
 		}
 		// Support easy query params for GET requests
 		reqOpts.params = new HttpParams();
@@ -54,28 +54,28 @@ export class ApiService {
 
 	post(endpoint: string, body: any, reqOpts?: any): Observable<any> {
 		if (this.token) {
-			reqOpts.Authentication = this.token;
+			reqOpts['Authentication'] = this.token;
 		}
 		return this.http.post(this.url + '/' + endpoint, body, reqOpts);
 	}
 
 	put(endpoint: string, body: any, reqOpts?: any): Observable<any> {
 		if (this.token) {
-			reqOpts.Authentication = this.token;
+			reqOpts['Authentication'] = this.token;
 		}
 		return this.http.put(this.url + '/' + endpoint, body, reqOpts);
 	}
 
 	delete(endpoint: string, reqOpts?: any): Observable<any> {
 		if (this.token) {
-			reqOpts.Authentication = this.token;
+			reqOpts['Authentication'] = this.token;
 		}
 		return this.http.delete(this.url + '/' + endpoint, reqOpts);
 	}
 
 	patch(endpoint: string, body: any, reqOpts?: any) {
 		if (this.token) {
-			reqOpts.Authentication = this.token;
+			reqOpts['Authentication'] = this.token;
 		}
 		return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
 	}
@@ -84,8 +84,16 @@ export class ApiService {
 		return this.translate.currentLang;
 	}
 
+	hasAuth(): Observable<any>{
+		return this.get('jwt-auth/v1').pipe(
+			map(res => {
+				return res.code === 'rest_no_route';
+			})
+		);
+	}
+
 	getToken(username: string, password: string): Observable<any> {
-		return this.post('wt-auth/v1/token', { username, password }).pipe(
+		return this.post('jwt-auth/v1/token', { username, password }).pipe(
 			map(res => {
 				if (res.token) {
 					this.token = res.token;
@@ -93,9 +101,6 @@ export class ApiService {
 				} else {
 					return Error('Unexpexted Error while logging in');
 				}
-			}),
-			catchError((err, caught) => {
-				return caught;
 			})
 		);
 	}

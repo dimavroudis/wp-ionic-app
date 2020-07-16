@@ -6,8 +6,8 @@ export interface AppInfo {
 	language: string;
 	featured_posts: string[];
 	featured_pages: string[];
-	links: { label: string, url: string, icon: string }[];
 	featured_categories: string[];
+	links: { label: string, url: string, icon: string }[];
 }
 
 export interface Post {
