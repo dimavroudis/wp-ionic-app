@@ -2,7 +2,7 @@
   <ion-toolbar>
 	<ion-title>{{title}}</ion-title>
 	<ion-buttons slot="end">
-		<ion-button class="search-button" [routerLink]="'/search'" ><ion-icon slot="icon-only" name="search"></ion-icon></ion-button> 
+		<ion-button class="search-button" [routerLink]="'/search'" ><ion-icon slot="icon-only" name="search-outline"></ion-icon></ion-button> 
 	</ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,18 +11,18 @@
 	<ion-tabs>
 		<ion-tab-bar slot="bottom">
 		  <ion-tab-button tab="home">
-			<ion-icon name="home"></ion-icon>
-			<ion-label>{{'Home' | translate}}</ion-label>
+			<ion-icon name="home-outline"></ion-icon>
+			<ion-label>{{'home' | translate}}</ion-label>
 		  </ion-tab-button>
 	  
 		  <ion-tab-button tab="latest">
-			<ion-icon name="paper"></ion-icon>
-			<ion-label>{{'Latest' | translate}}</ion-label>
+			<ion-icon name="newspaper-outline"></ion-icon>
+			<ion-label>{{'latest' | translate}}</ion-label>
 		  </ion-tab-button>
-
+	  
 		  <ion-tab-button tab="more" *ngIf="moreTab">
-			<ion-icon name="more"></ion-icon>
-			<ion-label>{{'More' | translate}}</ion-label>
+			<ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+			<ion-label>{{'more' | translate}}</ion-label>
 		  </ion-tab-button>
 		</ion-tab-bar>
 	  </ion-tabs>
