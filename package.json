@@ -6,8 +6,8 @@
   "description": "An experiment with WordPress Rest Api and Ionic",
   "scripts": {
     "ng": "ng",
-    "start": "ionic serve",
-    "build": "ionic build",
+    "start": "ng serve",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
