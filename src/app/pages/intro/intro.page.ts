@@ -26,8 +26,8 @@ export class IntroPage implements OnInit {
 	submit() {
 		this.api.setDomain(this.setupForm.value.domain).subscribe(isValid => {
 			this.isInvalid = !isValid;
-			this.settings.getAppInfo().subscribe();
 			if (isValid) {
+				this.settings.getAppInfo().subscribe();
 				this.navCtrl.navigateForward('/tabs');
 			}
 		})
