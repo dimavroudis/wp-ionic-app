@@ -36,7 +36,7 @@
 		"es6-promise-plugin": "^4.2.2",
 		"moment": "^2.24.0",
 		"ngx-moment": "^3.5.0",
-		"prismjs": "^1.17.1",
+		"prismjs": "^1.24.0",
 		"rxjs": "~6.5.1",
 		"tslib": "^1.9.0",
 		"zone.js": "~0.9.1"
