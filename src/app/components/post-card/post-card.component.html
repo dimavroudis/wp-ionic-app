@@ -2,10 +2,12 @@
 	<div *ngIf="post._embedded['wp:featuredmedia']" class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
 	<ion-card-header>
 		<ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
-		<p class="ion-margin-bottom" >
-			<ng-template [ngIf]="post.categories.length > 0"><span [innerHTML]="post._embedded['wp:term'][0][0].name"></span></ng-template>
-			{{'published' | translate}} {{post.date | amTimeAgo}} 
-			<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span [innerHTML]="post._embedded.author[0].name"></span></ng-template>
+		<p class="ion-margin-bottom">
+			<ng-template [ngIf]="post.categories.length > 0"><span
+					[innerHTML]="post._embedded['wp:term'][0][0].name"></span></ng-template>
+			{{'published' | translate}} {{post.date | amTimeAgo}}
+			<ng-template [ngIf]="post._embedded?.author.length > 0 && post._embedded?.author[0].name">{{'by' |
+				translate}} <span [innerHTML]="getAuthors()"></span></ng-template>
 		</p>
 		<div class="excerpt" *ngIf="post.excerpt.rendered" [innerHTML]="post.excerpt.rendered"></div>
 	</ion-card-header>

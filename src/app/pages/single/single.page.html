@@ -18,8 +18,8 @@
 				<h1 [innerHTML]="post.title.rendered"></h1>
 				<p class="meta">
 					{{'published' | translate}} {{post.date | amTimeAgo}}
-					<ng-template [ngIf]="post._embedded.author">{{'by' | translate}} <span
-							[innerHTML]="post._embedded.author[0].name"></span></ng-template>
+					<ng-template [ngIf]="post._embedded?.author.length > 0">{{'by' | translate}} <span
+							[innerHTML]="getAuthors()"></span></ng-template>
 				</p>
 				<div *ngIf="post.tags.length > 0">
 					<ion-chip color="primary" outline="true" *ngFor="let tag of post._embedded['wp:term'][1]">

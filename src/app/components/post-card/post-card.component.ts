@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MediaService } from 'src/app/services/media.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Post } from 'src/app/models/wordpress';
+import { Post, User } from 'src/app/models/wordpress';
 
 @Component({
 	selector: 'app-post-card',
@@ -23,5 +23,12 @@ export class PostCardComponent implements OnInit {
 			return this.sanitizer.bypassSecurityTrustStyle(`url('${this.media.getSourceUrl(this.post._embedded['wp:featuredmedia'][0], 'full')}')`);
 		}
 		return '';
+	}
+
+	getAuthors() {
+		return this.post._embedded.author.map((author) => {
+			let user = author as User;
+			return user?.name;
+		}).join(', ');
 	}
 }

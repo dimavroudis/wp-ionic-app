@@ -3,7 +3,7 @@ import { PostService } from 'src/app/services/post.service';
 import { ActivatedRoute } from '@angular/router';
 import { MediaService } from 'src/app/services/media.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Post, AppInfo } from 'src/app/models/wordpress';
+import { Post, AppInfo, User } from 'src/app/models/wordpress';
 import { NavController } from '@ionic/angular';
 import Prism from 'prismjs';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -66,6 +66,13 @@ export class SinglePage implements OnInit, AfterViewChecked {
 
 	ngAfterViewChecked(): void {
 		Prism.highlightAll();
+	}
+
+	getAuthors() {
+		return this.post._embedded.author.map((author) => {
+			let user = author as User;
+			return user?.name;
+		}).join(', ');
 	}
 
 	goBack() {
