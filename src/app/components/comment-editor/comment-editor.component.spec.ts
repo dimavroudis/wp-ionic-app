@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommentEditorComponent } from './comment-editor.component';
 
@@ -7,7 +7,7 @@ describe('CommentEditorComponent', () => {
   let component: CommentEditorComponent;
   let fixture: ComponentFixture<CommentEditorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CommentEditorComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
