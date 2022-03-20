@@ -3,9 +3,14 @@
 		<ion-item *ngFor="let page of featuredPages" [routerLink]="['/page', page.id]">
 			<ion-label [innerHtml]="page.title.rendered"></ion-label>
 		</ion-item>
-		<ion-item [routerLink]="['/auth']">
-			<ion-label>{{ 'login' | translate}}</ion-label>
+		<ion-item button (click)="auth.logOut()" *ngIf="auth.isLoggedIn | async;else loggedOut">
+			<ion-label>{{ 'logout' | translate}}</ion-label>
 		</ion-item>
+		<ng-template #loggedOut>
+			<ion-item [routerLink]="['/auth']">
+				<ion-label>{{ 'login' | translate}}</ion-label>
+			</ion-item>
+		</ng-template>
 	</ion-list>
 
 	<ion-list *ngIf="links && links.length > 0">

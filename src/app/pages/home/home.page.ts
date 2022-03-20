@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { SettingsService } from 'src/app/services/settings.service';
 import { Post } from 'src/app/models/wordpress';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
 	selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomePage implements OnInit {
 	featuredPosts: Post[];
 	latestPosts: Post[];
 
-	constructor(private post: PostService, private settingsService: SettingsService) {
+	constructor(private post: PostService, private settingsService: SettingsService, public user: UsersService) {
 	}
 
 	ngOnInit() {

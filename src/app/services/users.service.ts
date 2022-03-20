@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { User } from '../models/wordpress';
+import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,9 +11,26 @@ import { User } from '../models/wordpress';
 export class UsersService {
 
 	private user: User;
-	public isLogged = false;
 
-	constructor(private api: ApiService) { }
+	constructor(private api: ApiService, private auth: AuthService) { }
+
+	me(): Observable<User | false> {
+		return this.auth.isLoggedIn.pipe(
+			mergeMap((isLoggedIn) => {
+				if (!isLoggedIn) {
+					return of(false)
+				}
+				if (this.user) {
+					return of(this.user);
+				}
+				return this.api.get('wp/v2/users/me').pipe(
+					map(res => {
+						this.user = res;
+						return res;
+					})
+				);
+			}));
+	}
 
 	getUsers(ids: Array<number>, options = {}): Observable<User[]> {
 		if (!ids) {
@@ -27,34 +45,6 @@ export class UsersService {
 			throw Error('No media ID defined');
 		}
 		return this.api.get('wp/v2/users/' + id, args);
-	}
-
-	me(): Observable<User> {
-		if (this.user) {
-			return of(this.user);
-		} else {
-			return this.api.get('wp/v2/users/me').pipe(
-				map(res => {
-					this.user = res;
-					return res;
-				})
-			);
-		}
-	}
-
-	login(username, password): Observable<any> {
-		return this.api.getToken(username, password).pipe(
-			map(res => {
-				this.isLogged = true;
-				return res;
-			})
-		);
-	}
-
-	logOut(): boolean {
-		this.isLogged = false;
-		this.api.deleteToken();
-		return true;
 	}
 
 }

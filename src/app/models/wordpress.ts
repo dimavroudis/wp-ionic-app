@@ -113,6 +113,10 @@ export interface Comment {
 	type: string;
 	author_avatar_urls: string[];
 	meta: any[];
+	_links?: {
+		children?: any[],
+		[key: string]: any
+	}
 }
 
 export type CommentStatus = 'open' | 'closed';

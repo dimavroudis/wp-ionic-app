@@ -4,6 +4,7 @@
 	  </ion-refresher>
 	<div class="ion-padding">
 		<h2 class="display-1">{{description}}</h2>
+		<p class="lead" *ngIf="user.me() | async as me">Welcome {{me.name}}</p>
 	</div>
 	<div class="ion-margin-bottom" *ngIf="featuredPosts?.length">
 		<h2 class="ion-padding-horizontal">{{'trending-articles' | translate }}</h2>

@@ -59,8 +59,6 @@ export class ArchivePage implements OnInit {
 		this.args.page = this.page = 1;
 		if (this.termId) {
 			this.args[this.taxonomyBase] = this.termId;
-		} else if (this.taxonomyBase) {
-			this.args[this.taxonomyBase] = '';
 		}
 		if (this.excludeId) {
 			this.args['exclude'] = this.excludeId;

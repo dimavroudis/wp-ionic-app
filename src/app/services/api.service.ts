@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +13,7 @@ export class ApiService {
 	private isHttps: boolean;
 	private url: string;
 
-	private token: string;
+	private defaultHeaders: { [name: string]: string } = {};
 
 	constructor(private http: HttpClient, private translate: TranslateService) {
 		// Website domain
@@ -27,85 +26,78 @@ export class ApiService {
 		this.isHttps = true;
 
 		this.url = (this.isHttps ? 'https://' : 'http://') + this.domain + '/' + this.namespace;
+
 	}
 
 	get(endpoint: string, params?: any, reqOpts?: any): Observable<any> {
+		let defaultReqOpts = {
+			params: { 'lang': this.translate.currentLang },
+			responseType: 'json'
+		};
 		if (!reqOpts) {
+			reqOpts = defaultReqOpts;
+		} else {
+			if ('params' in reqOpts) {
+				delete reqOpts.params;
+			}
 			reqOpts = {
-				responseType: 'json',
-			};
-		}
-		if (this.token) {
-			reqOpts['Authentication'] = this.token;
-		}
-		// Support easy query params for GET requests
-		reqOpts.params = new HttpParams();
-		reqOpts.params = reqOpts.params.set('lang', this.getLang());
-		if (params) {
-			for (let k in params) {
-				if (k) {
-					reqOpts.params = reqOpts.params.set(k, params[k]);
-				}
+				...defaultReqOpts,
+				...reqOpts
 			}
 		}
 
-		return this.http.get(this.url + '/' + endpoint, reqOpts);
+		if (params) {
+			Object.assign(reqOpts.params, params);
+		}
+
+		if (!reqOpts) {
+
+		}
+
+		return this.http.get(this.url + '/' + endpoint, this.getRequestOptions(reqOpts));
 	}
 
 	post(endpoint: string, body: any, reqOpts?: any): Observable<any> {
-		if (this.token) {
-			reqOpts['Authentication'] = this.token;
-		}
-		return this.http.post(this.url + '/' + endpoint, body, reqOpts);
+		return this.http.post(this.url + '/' + endpoint, body, this.getRequestOptions(reqOpts));
 	}
 
 	put(endpoint: string, body: any, reqOpts?: any): Observable<any> {
-		if (this.token) {
-			reqOpts['Authentication'] = this.token;
-		}
-		return this.http.put(this.url + '/' + endpoint, body, reqOpts);
+		return this.http.put(this.url + '/' + endpoint, body, this.getRequestOptions(reqOpts));
 	}
 
 	delete(endpoint: string, reqOpts?: any): Observable<any> {
-		if (this.token) {
-			reqOpts['Authentication'] = this.token;
-		}
-		return this.http.delete(this.url + '/' + endpoint, reqOpts);
+		return this.http.delete(this.url + '/' + endpoint, this.getRequestOptions(reqOpts));
 	}
 
 	patch(endpoint: string, body: any, reqOpts?: any) {
-		if (this.token) {
-			reqOpts['Authentication'] = this.token;
+		return this.http.patch(this.url + '/' + endpoint, body, this.getRequestOptions(reqOpts));
+	}
+
+	private getRequestOptions(reqOpts) {
+		let headers = this.defaultHeaders;
+
+		if (!reqOpts) {
+			return { headers }
 		}
-		return this.http.patch(this.url + '/' + endpoint, body, reqOpts);
+		if ('headers' in reqOpts) {
+			headers = {
+				headers: this.defaultHeaders,
+				...reqOpts.headers
+			}
+			delete reqOpts.headers;
+		}
+
+		return {
+			headers,
+			...reqOpts
+		}
 	}
 
-	getLang(): string {
-		return this.translate.currentLang;
+	setHeader(header: { [name: string]: string }) {
+		return Object.assign(this.defaultHeaders, header);
 	}
 
-	hasAuth(): Observable<any>{
-		return this.get('jwt-auth/v1').pipe(
-			map(res => {
-				return res.code === 'rest_no_route';
-			})
-		);
-	}
-
-	getToken(username: string, password: string): Observable<any> {
-		return this.post('jwt-auth/v1/token', { username, password }).pipe(
-			map(res => {
-				if (res.token) {
-					this.token = res.token;
-					return res;
-				} else {
-					return Error('Unexpexted Error while logging in');
-				}
-			})
-		);
-	}
-
-	deleteToken() {
-		this.token = '';
+	unsetHeader(key: string) {
+		delete this.defaultHeaders[key];
 	}
 }

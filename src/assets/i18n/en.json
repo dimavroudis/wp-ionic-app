@@ -31,5 +31,6 @@
   "username": "Username",
   "password": "Password",
   "login-cta": "Login",
-  "login": "Login"
+  "login": "Login",
+  "logout": "Log out"
 }

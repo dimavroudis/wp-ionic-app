@@ -1,5 +1,5 @@
 <ion-card [routerLink]="'/post/' + post.id" routerDirection="forward">
-	<div *ngIf="post._embedded['wp:featuredmedia']" class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
+	<div class="image" [style.backgroundImage]="getFeaturedMedia()"></div>
 	<ion-card-header>
 		<ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
 		<p class="ion-margin-bottom">

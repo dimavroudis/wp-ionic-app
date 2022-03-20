@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-auth',
@@ -11,7 +12,7 @@ import { NavController } from '@ionic/angular';
 export class AuthPage implements OnInit {
 	loginForm: FormGroup;
 
-	constructor(private user: UsersService, private navCtrl: NavController) { }
+	constructor(private auth: AuthService,private user: UsersService, private navCtrl: NavController) { }
 
 	ngOnInit() {
 		this.loginForm = new FormGroup({
@@ -21,7 +22,7 @@ export class AuthPage implements OnInit {
 	}
 
 	login() {
-		this.user.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(() => {
+		this.auth.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(() => {
 			this.user.me().subscribe(() => {
 				this.navCtrl.navigateRoot('');
 			});

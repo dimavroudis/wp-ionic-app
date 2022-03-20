@@ -6,6 +6,7 @@ import { Comment } from 'src/app/models/wordpress';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from 'src/app/services/users.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -27,25 +28,27 @@ export class CommentEditorComponent implements OnInit {
 		private toast: ToastService,
 		private commentService: CommentService,
 		private translate: TranslateService,
-		private user: UsersService
+		private auth: AuthService
 	) { }
 
 	ngOnInit() {
 		this.translate.get('comment-success').subscribe(res => {
 			this.successMessage = res;
 		});
-		if (!this.user.isLogged) {
-			this.commentForm = new FormGroup({
-				author_name: new FormControl(this.comment ? this.comment.author_name : '', [Validators.required]),
-				author_email: new FormControl(this.comment ? this.comment.author_email : '', [Validators.required]),
-				author_url: new FormControl(this.comment ? this.comment.author_url : '', [Validators.required]),
-				content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
-			});
-		} else {
-			this.commentForm = new FormGroup({
-				content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
-			});
-		}
+		this.auth.isLoggedIn.subscribe((isLoggedIn) => {
+			if (!isLoggedIn) {
+				this.commentForm = new FormGroup({
+					author_name: new FormControl(this.comment ? this.comment.author_name : '', [Validators.required]),
+					author_email: new FormControl(this.comment ? this.comment.author_email : '', [Validators.required]),
+					author_url: new FormControl(this.comment ? this.comment.author_url : '', [Validators.required]),
+					content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
+				});
+			} else {
+				this.commentForm = new FormGroup({
+					content: new FormControl(this.comment ? this.comment.content : '', [Validators.required]),
+				});
+			}
+		})
 	}
 
 	dismiss() {

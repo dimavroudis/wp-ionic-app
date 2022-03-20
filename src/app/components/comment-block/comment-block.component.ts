@@ -14,12 +14,12 @@ export class CommentBlockComponent implements OnInit {
 	showReplies: boolean;
 	@Input() comment: Comment;
 	loading: boolean;
-	hasReplies = true;
+	hasReplies: boolean;
 
 	constructor(private commentService: CommentService, public modalController: ModalController) { }
 
 	ngOnInit() {
-
+		this.hasReplies = this.comment?._links?.children.length > 0;
 	}
 
 	getChildComments() {
